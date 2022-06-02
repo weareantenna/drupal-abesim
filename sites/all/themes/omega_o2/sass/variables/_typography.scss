@@ -1,0 +1,36 @@
+// fonts
+//@import url(https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,300italic);
+
+$lato : 'Lato', Helvetica, Arial, sans-serif;
+
+/*
+Thin: 100, Light: 300, Light Italic: 300, Normal: 400, Bold: 700, Ultra-bold: 900
+*/
+
+
+$base-font-family: $lato, sans-serif;
+$normalized_font_family: sans-serif;
+
+$base-font-size: 17px;
+$base-line-height: 1.6em;
+
+$h1_font_size: 1.75em;
+$h2_font_size: 1.5em;
+$h3_font_size: 1.375em;
+$h4_font_size: 1.375em;
+$h5_font_size: 1.25em;
+$h6_font_size: 0.825em;
+
+$h1_margin: 0;
+$h2_margin: 0 0 0.75em;
+$h3_margin: 0 0 0.75em;
+$h4_margin: 0 0 0.5em;
+$h5_margin: 0 0 0.5em;
+$h6_margin: 0;
+
+$h1_padding: 0;
+$h2_padding: 0;
+$h3_padding: 0;
+$h4_padding: 0;
+$h5_padding: 0;
+$h6_padding: 0;

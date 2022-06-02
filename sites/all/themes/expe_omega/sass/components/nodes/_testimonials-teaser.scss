@@ -1,0 +1,83 @@
+.node--testimonial--teaser {
+  max-width: 80%;
+  margin: 0 auto 2em auto;
+
+  .field--name-body {
+    position: relative;
+    padding-left: 2em;
+    font-size: 1.3em;
+
+    &:before{
+      content:'\e81e';
+      font-family: "fontello";
+      font-style: normal;
+      font-weight: normal;
+      speak: none;
+      display: inline-block;
+      text-decoration: inherit;
+      font-size: 1.2em;
+      color: $green;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
+  img {
+    border: 1px solid #eee;
+    padding: 1em;
+  }
+
+  h3 {
+    font-size: 1.1em;
+    padding-left: 2.4em;
+    font-weight: 300;
+    padding-top: .5em;
+    font-style: italic;
+  }
+
+  /*.field--name-body {
+    display: none;
+  }
+
+  &.js-show {
+    .field--name-body { display: block; }
+    .more { display: none; }
+  }*/
+}
+
+aside .node--testimonial--teaser {
+
+  border: 0;
+  margin: 0;
+  padding: 0;
+  max-width: none;
+
+  .group-left,
+  .group-right {
+    width: 100%;
+    clear: both;
+    padding: 0;
+  }
+  .field--name-field-thumbnail {
+    text-align: center;
+    padding: 1em 0;
+
+    img {
+      border: 0;
+      margin: 0;
+      width: 50%;
+    }
+  }
+
+  .field--name-body {
+    position: relative;
+    padding-left: 2em;
+    font-size: 1.15em;
+  }
+
+  h3 {
+    padding-left: 2em;
+    font-weight: 300;
+  }
+
+}

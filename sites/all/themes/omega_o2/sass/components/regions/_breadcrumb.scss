@@ -1,0 +1,39 @@
+.l-header {
+  .l-breads {
+    @include breakpoint(0 $tab-tab-desk){
+      display: none;
+    }
+    color: $base-text-color;
+    font-size: .6em;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: .5em;
+    clear: left;
+    a {
+      color: $grey;
+      font-weight: 400;
+      padding: 4px 0;
+      &:hover {
+        color: $red;
+      }
+    }
+    ul.breadcrumbs {
+      li {
+        display: inline-block;
+        float: left;
+        &:not(:first-child):before {
+          content: "\f054";
+          font-family: FontAwesome;
+          font-weight: 100;
+          font-size: .75em;
+          margin: 0 .75em;
+          color: $grey-light;
+        }
+      }
+    }
+    @include breakpoint($tab) {
+      margin-to: 1em 0 2em;
+      @include clearfix;
+    }
+  }
+}

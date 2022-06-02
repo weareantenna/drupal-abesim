@@ -1,0 +1,4 @@
+name = O2 GA events
+description = This module adds custom GA events for this website
+core = 7.x
+dependencies[] = google_analytics_et

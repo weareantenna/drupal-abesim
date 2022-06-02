@@ -1,0 +1,256 @@
+<?php
+
+/**
+ * @file
+ * Install and uninstall functions for the CleanTalk module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function cleantalk_install() 
+{  
+  db_drop_table('cleantalk_timelabels');
+  $cleantalk_timelabels = array(
+    'description' => 'Timelabels for admin notification sending.',
+    'fields' => array(
+      'ct_key' => array(
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'Notification ID.',
+      ),
+      'ct_value' => array(
+        'type' => 'int',
+        'length' => 12,
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Time of last notification.',
+      ),
+    ),
+    'primary key' => array('ct_key'),
+  );
+  db_create_table('cleantalk_timelabels', $cleantalk_timelabels);
+
+  db_drop_table('cleantalk_sfw');
+  $cleantalk_sfw = array(
+    'description' => 'SpamFireWall data.',
+    'fields' => array(
+      'network' => array(
+        'type' => 'int',
+        'length' => 11,
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Spam network.',
+      ),
+      'mask' => array(
+        'type' => 'int',
+        'length' => 11,
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Spam mask.',
+      ),
+    ),
+    'indexes' => array(
+      'network'        => array('network'),
+      ),
+  );
+  db_create_table('cleantalk_sfw', $cleantalk_sfw);
+  
+  db_drop_table('cleantalk_sfw_logs');
+    $cleantalk_sfw_logs = array(
+    'description' => 'SpamFireWall logs.',
+    'fields' => array(
+      'ip' => array(
+        'type' => 'varchar',
+        'length' => 15,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'IP.'
+      ),
+      'all_entries' => array(
+        'type' => 'int',
+        'description' => 'All entries.'
+      ),
+    'blocked_entries' => array(
+        'type' => 'int',
+        'description' => 'Blocked entries.'
+      ),
+      'entries_timestamp' => array(
+        'type' => 'int',
+        'description' => 'time().'
+      )
+    ),
+    'primary key' => array('ip'),
+  );
+  db_create_table('cleantalk_sfw_logs', $cleantalk_sfw_logs);
+
+  db_drop_table('cleantalk_sessions');
+    $cleantalk_sessions = array(
+    'description' => 'Alternative cookies table',
+    'fields' => array(
+      'id' => array(
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => TRUE,
+        'description' => 'id.'
+      ),
+      'name' => array(
+        'type' => 'varchar',
+        'length' => 40,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'name.'
+      ),
+    'value' => array(
+        'type' => 'text',
+        'not null' => FALSE,
+        'default' => NULL,
+        'description' => 'value.'
+      ),
+      'last_update' => array(
+        'type' => 'datetime',
+        'mysql_type' => 'datetime',
+        'not null' => FALSE,
+        'default' => NULL,
+        'description' => 'time().'
+      )
+    ),
+    'primary key' => array('id','name'),
+  );
+  db_create_table('cleantalk_sessions', $cleantalk_sessions);
+}
+/**
+ * Implements hook_uninstall().
+ */
+function cleantalk_uninstall() {
+  variable_del('cleantalk_check_register');
+  variable_del('cleantalk_authkey');
+  variable_del('cleantalk_check_ccf');
+  variable_del('cleantalk_link');
+  variable_del('cleantalk_sfw');
+  variable_del('cleantalk_check_comments');
+  variable_del('cleantalk_check_comments_automod');
+  variable_del('cleantalk_check_comments_min_approved');
+  variable_del('cleantalk_check_webforms');
+  variable_del('cleantalk_check_contact_forms');
+  variable_del('cleantalk_check_forum_topics');
+  variable_del('cleantalk_check_search_form');
+  variable_del('cleantalk_url_exclusions');
+  variable_del('cleantalk_url_exclusions_regexp');
+  variable_del('cleantalk_fields_exclusions');
+  variable_del('cleantalk_roles_exclusions');
+  variable_del('cleantalk_work_url');
+  variable_del('cleantalk_server_url');
+  variable_del('cleantalk_server_ttl');
+  variable_del('cleantalk_server_changed');
+  variable_del('cleantalk_sfw_last_logs_sent');
+  variable_del('cleantalk_sfw_last_updated');
+  variable_del('cleantalk_api_show_notice');
+  variable_del('cleantalk_api_renew');
+  variable_del('cleantalk_api_trial');
+  variable_del('cleantalk_api_user_token');
+  variable_del('cleantalk_api_spam_count');
+  variable_del('cleantalk_api_moderate_ip');
+  variable_del('cleantalk_api_moderate');
+  variable_del('cleantalk_api_show_review');
+  variable_del('cleantalk_api_service_id');
+  variable_del('cleantalk_api_license_trial');
+  variable_del('cleantalk_api_account_name_ob');
+  variable_del('cleantalk_api_ip_license');
+  variable_del('cleantalk_show_renew_banner');
+  variable_del('cleantalk_add_search_noindex');
+  variable_del('cleantalk_set_cookies');
+  variable_del('cleantalk_alternative_cookies_session');
+  db_drop_table('cleantalk_timelabels');
+  db_drop_table('cleantalk_sfw');
+  db_drop_table('cleantalk_sfw_logs');
+  db_drop_table('cleantalk_sessions');  
+}
+
+/**
+ * Add new table for SpamFireWall logs
+ */
+function cleantalk_update_7300(&$sandbox = NULL){
+  variable_set('cleantalk_sfw_last_logs_sent', time());
+  db_drop_table('cleantalk_sfw_logs');
+  $cleantalk_sfw_logs = array(
+    'description' => 'Comment checking results - CIDs and server responces.',
+    'fields' => array(
+      'ip' => array(
+        'type' => 'varchar',
+        'length' => 15,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'IP.'
+      ),
+      'all' => array(
+        'type' => 'int',
+        'description' => 'All entries.'
+      ),
+      'blocked' => array(
+        'type' => 'int',
+        'description' => 'Blocked entries.'
+      ),
+      'timestamp' => array(
+        'type' => 'int',
+        'description' => 'time().'
+      )
+    ),
+    'primary key' => array('ip'),
+  );
+  db_create_table('cleantalk_sfw_logs', $cleantalk_sfw_logs);
+  
+  return '* New table for SpamFireWall logs added.';
+}
+
+/**
+ * Compatibilty changes for SpamFireWall logs table
+ */
+function cleantalk_update_7301(&$sandbox = NULL){
+  variable_set('cleantalk_sfw_last_logs_sent', time());
+  db_drop_table('cleantalk_sfw_logs');
+  $cleantalk_sfw_logs = array(
+    'description' => 'Comment checking results - CIDs and server responces.',
+    'fields' => array(
+      'ip' => array(
+        'type' => 'varchar',
+        'length' => 15,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'IP.'
+      ),
+      'all_entries' => array(
+        'type' => 'int',
+        'description' => 'All entries.'
+      ),
+      'blocked_entries' => array(
+        'type' => 'int',
+        'description' => 'Blocked entries.'
+      ),
+      'entries_timestamp' => array(
+        'type' => 'int',
+        'description' => 'time().'
+      )
+    ),
+    'primary key' => array('ip'),
+  );
+  db_create_table('cleantalk_sfw_logs', $cleantalk_sfw_logs);
+  
+  return '* New table for SpamFireWall logs added.';
+}
+function cleantalk_update_7050 (&$sandbox = NULL) {
+  $roles = user_roles();
+  asort($roles);
+  foreach( $roles as $role_id => $role_name ) {
+    if(strpos('administrator', $role_name) === false) {
+      unset( $roles[$role_id] );
+    }
+  }
+  $default_roles = array_keys($roles);
+  variable_set('cleantalk_roles_exclusions', $default_roles);
+}

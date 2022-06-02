@@ -1,0 +1,142 @@
+/**
+ * $BASE-TYPOGRAPHY
+ */
+
+
+// 1. Corrects text resizing oddly in IE6/7 when body font-size is set using em units
+//    http://clagnut.com/blog/348/#c790
+// 2. Prevents iOS text size adjust after orientation change, without disabling user zoom
+//    www.456bereastreet.com/archive/201012/controlling_text_size_in_safari_for_ios_without_disabling_user_zoom/
+html {
+  font-size: 100% * ($base-font-size / 16px); /* 1 */
+  -webkit-text-size-adjust: 100%; /* 2 */
+  -ms-text-size-adjust: 100%; /* 2 */
+  -webkit-font-smoothing: antialiased;
+}
+
+// Addresses font-family inconsistency between 'textarea' and other form elements.
+html,
+button,
+input,
+select,
+textarea {
+  font-family: $base-font-family;
+  line-height: $base-line-height;
+}
+
+body {
+  font-size: $base-font-size * 0.9;
+  line-height: $base-line-height;
+  font-weight: 300;
+  color: $base-text-color;
+  @include breakpoint($small-tab) {
+    font-size: $base-font-size * 0.95;
+  }
+  @include breakpoint($tab) {
+    font-size: $base-font-size;
+  }
+}
+
+* {
+  &::-moz-selection { background-color: $base-selected-text-background-color; color: $base-selected-text-color; }
+  &::selection { background-color: $base-selected-text-background-color; color: $base-selected-text-color; }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 1em 0;
+  clear: both;
+  font-family: $base-font-family;
+  line-height: $base-line-height;
+  font-weight: 900;
+}
+
+h1 {
+  font-size: $h1_font_size * 0.8;
+  margin: $h1_margin;
+  padding: $h1_padding;
+  font-weight: 700;
+  @include breakpoint($small-tab) {
+    font-size: $h1-font-size * 0.9;
+  }
+  @include breakpoint($tab-desk) {
+    font-size: $h1-font-size;
+  }
+}
+
+h2 {
+  font-size: $h2_font_size;
+  margin: $h2_margin;
+  padding: $h2_padding;
+}
+
+h3 {
+  font-size: $h3_font_size;
+  margin: $h3_margin;
+  padding: $h3_padding;
+}
+
+h4 {
+  font-size: $h4_font_size;
+  margin: $h4_margin;
+  padding: $h4_padding;
+  font-weight: 400;
+}
+
+h5 {
+  font-size: $h5_font_size;
+  margin: $h5_margin;
+  padding: $h5_padding;
+  font-weight: 700;
+}
+
+h6 {
+  font-size: $h6_font_size;
+  margin: $h6_margin;
+  padding: $h6_padding;
+  font-weight: 700;
+}
+
+strong{
+  font-weight: 900;
+}
+
+ul li,
+ol li {
+  //margin-bottom: $small-vert-spacing-unit;
+}
+
+p + ul,
+p + ol {
+  margin-top: -$medium-vert-spacing-unit;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: $medium-vert-spacing-unit;
+}
+
+p + h1, p + h2, p + h3,
+p + h4, p + h5, p + h6 {
+  margin-top: $big-vert-spacing-unit;
+}
+
+a {
+  @include transition-property(color);
+  @include transition-duration(.5s);
+  @include link-colors($base-link-color, $base-link-hover-color);
+  text-decoration: none;
+
+  img{ vertical-align: top; }
+}
+.l-content a {
+  @include link-colors($base-link-color, $base-link-hover-color);
+}
+
+// HORIZONTAL RULES
+hr {
+  margin: $vert-spacing-unit 0;
+  border: 0;
+  border-top: 1px solid $grey-ultra;
+  width: 100%;
+  clear: both;
+}

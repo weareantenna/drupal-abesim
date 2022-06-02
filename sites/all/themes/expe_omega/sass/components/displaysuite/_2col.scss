@@ -1,0 +1,27 @@
+.ds-2col {
+
+  .group-left,
+  .group-right {
+    width: 100%;
+    margin-right: 0;
+  }
+  @include breakpoint($tab, true){
+    .group-left {
+      width: 30%;
+      min-height: 1px;
+    }
+    .group-right {
+      width: 70%;
+      padding-left: 2em;
+    }
+  }
+  padding-bottom: 2em;
+  border-bottom: 1px solid #f2f2f2;
+  margin-bottom: 2em;
+}
+.views-row-last .ds-2col {
+  padding-bottom: 0;
+  border-bottom: 0;
+  margin-bottom: 0;
+}
+

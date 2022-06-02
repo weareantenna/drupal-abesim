@@ -1,0 +1,108 @@
+.block-search { 
+  position: relative;
+
+  .form-item {
+    margin: 0;
+    position: relative;
+
+    &:before{
+      content:'\e823';
+      font-family: "fontello";
+      font-style: normal;
+      font-weight: normal;
+      speak: none;
+      display: inline-block;
+      text-decoration: inherit;
+      position: absolute;
+      top: .4em;
+      right: .9em;
+    }
+    &.throbbing:before{
+      content:'\e825';
+      animation:1s linear 0s normal none infinite spin;
+    }
+
+    label { display: none; margin: 0; }
+
+    .form-text {
+      float: left;
+      width: 100%;
+      height: 38px;
+      padding-right: 42px;
+      border: 0;
+      margin: 0 0 1em 0;
+      color: $purple-dark;
+      background-image: none;
+
+      &::-webkit-input-placeholder { color: $purple-dark; opacity: .5; }
+      &::-moz-placeholder { color: $purple-dark; } /* firefox 19+ */
+      &:-ms-input-placeholder { color: $purple-dark; } /* ie */
+      &:-moz-placeholder { color: $purple-dark; }  
+      
+    }
+  }    
+  .form-submit{
+    display: none;
+    /*position: absolute;
+    top: 0;
+    right: 0;
+    background: $grey-ultra;
+    padding: 0 2px;
+    &:active{
+      background: $grey-light;
+    }*/
+  }
+}
+
+// TAB, DESK & BEYOND
+@include breakpoint($tab, true){
+  .block-search { 
+
+    float: right;   
+    width: 220px;
+    margin: -6px 0 0 1em;
+    
+    // INPUT
+    .form-item {
+      float: left;
+      width: 100%;
+      margin: 0;
+      .form-text {
+        background: #dbd9dd;
+        background: rgba(74,63,87,.2);
+        margin: 0;
+      }
+    }
+  
+    // DROPDOWN
+    #autocomplete {
+      border-top: 0;
+      border-color: $grey-light;
+
+      ul li {
+        display: block;
+        margin: 0;
+        border-bottom: 1px solid #eee;
+        white-space: normal;
+        text-align: left !important;
+
+        &:last-child{ border: 0}
+
+        &.selected{
+          background: $purple-dark;
+          color: $white;
+          cursor: pointer;
+        }
+      }
+
+      p { margin: 0; }
+    }    
+  }
+}
+
+// WIDE
+@include breakpoint($wide, true){
+  .block-search { 
+    margin: 3em 0 0 1em;
+  }
+}

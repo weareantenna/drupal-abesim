@@ -1,0 +1,208 @@
+.l-doormat {
+  clear: both;
+  padding: 4.25em 0 .75em;
+  background-color: $grey-light;
+  font-weight: 400;
+  border-top: 1px solid $red-dark;
+  border-bottom: 1px solid $red-dark;
+  line-height: 1.35em;
+  margin-top: -1px;
+  font-size: .875em;
+  @include breakpoint($tab-desk, true) {
+    font-size: .95em;
+  }
+  p {
+    clear: left;
+  }
+  a {
+    color: inherit;
+    padding-top: .25em;
+    padding-bottom: .25em;
+    &.active {
+      color: $red-dark;
+    }
+    &:hover {
+      color: $red;
+    }
+  }
+  a[href^="mailto:"] {
+    padding-left: 10px;
+    &:before {
+      content: "\f0e0";
+      font-family: FontAwesome;
+      margin-left: -10px;
+      margin-right: 5px;
+      &:hover {
+        color: $red;
+      }
+    }
+  }
+  .tel {
+    padding-left: 10px;
+    &:before {
+      content: "\f095";
+      font-family: FontAwesome;
+      margin-left: -10px;
+      margin-right: 5px;
+    }
+
+  }
+  ul, ol {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    li {
+      margin: 0;
+      padding: 0;
+      display: block;
+      margin-bottom: 4px;
+      padding-left: 5px;
+      &:before {
+        content: "\f054";
+        font-family: FontAwesome;
+        font-size: .75em;
+        color: $grey;
+        margin-left: -15px;
+        margin-right: 10px;
+      }
+      ul ul > li:before {
+        content: "\f0da";
+      }
+    }
+  }
+  .field-name-title {
+    display: none;
+  }
+
+  // LEFT
+  .l-region--doormat-left {
+    font-weight: 400;
+    font-size: 1em;
+    strong {
+      display: block;
+      margin: 0;
+      margin-top: 22px;
+      font-weight: 900;
+    }
+    .field-name-body {
+      img:first-child {
+        margin-top: -1.25em;
+      }
+    }
+    .section-location {
+      margin-bottom: 0.75em;
+      p {
+        margin: 0;
+      }
+    }
+    // SOCIAL ICONS
+    .linkedin:before{
+      content: "\f08c";
+      font-family: FontAwesome;
+      font-size: 1.25em;
+    }
+    .facebook:before {
+      content: "\f082";
+      font-family: FontAwesome;
+      font-size: 1.25em;
+    }
+    .twitter:before {
+      content: "\f081";
+      font-family: FontAwesome;
+      font-size: 1.25em;
+    }
+  }
+
+  // MIDDLE
+  .l-region--doormat-middle {
+    @include breakpoint(0 $small-tab) {
+      margin-top: 2em;
+    }
+    font-size: .9em;
+    ul {
+      li {
+        border-bottom: 1px solid $grey;
+        padding: 10px 0;
+        margin: 0;
+        padding-left: 1.5em;
+        strong {
+          display: block;
+          margin-left: -1.5em;
+          font-weight: 700;
+        }
+        &:before {
+          content: "";
+          margin: 0;
+        }
+        &:first-child {
+          border-top: 1px solid $grey;
+          @include breakpoint($small-tab, true) {
+            margin-top: .25em;
+          }
+        }
+      }
+    }
+    a {
+      display: block;
+    }
+  }
+
+  // RIGHT
+  .l-region--doormat-right {
+    @include breakpoint(0 $tab-tab-desk) {
+      clear: left;
+      margin-top: 2em;
+      padding-top: 1.5em;
+    }
+    @include breakpoint($small-tab $tab-tab-desk) {
+      border-top: 1px solid $grey;
+      padding-top: 3em;
+    }
+    ul {
+        font-size: 1.15em;
+      li {
+        //font-size: 25px;
+
+
+        ul {
+          margin-top: 20px;
+          font-size: .85em;
+
+          li {
+            padding-left: 10px;
+            //font-size: 18px;
+
+            ul {
+              margin: 10px 0 20px;
+              li {
+                padding-left: 20px;
+                //font-size: 15px;
+                a.active-trail {
+                  color: $red-dark;
+                  &:hover {
+                    color: $red;
+                  }
+                }
+              }
+            }
+          }
+        }
+        &.split,
+        &.split-end {
+          @include breakpoint($small-tab, true) {
+            width: 50%;
+            float: left;
+          }
+          &:before {
+            content: "";
+          }
+        }
+        &.split {
+          @include breakpoint($small-tab, true) {
+            padding-right: 1.5em;
+          }
+        }
+      }
+    }
+  }
+}

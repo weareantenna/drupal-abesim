@@ -1,0 +1,137 @@
+.l-doormat {
+  background: $grey-ultra;
+  padding: 3em 0 2em 0;
+
+  .block {
+    font-size: 1.1em;
+  }
+}
+
+  // LOGO & CONTACT
+  .l-region--doormat-left {
+    p {
+      margin-bottom: 2em;
+    }
+    .tel {
+      margin-right: 1em;
+      &::before {
+        content: "\e818"; 
+        font-family: Fontello;
+        font-style: normal;
+        font-weight: normal;
+        text-decoration: inherit;
+        margin-right: .5em;
+      }
+    }
+    .mail::before {
+      content: "\e816"; 
+      font-family: Fontello;
+      font-style: normal;
+      font-weight: normal;
+      text-decoration: inherit;
+      margin-right: .5em;
+    }
+    ul.social {
+      list-style-type: none;
+      padding: 0;
+      margin: 0 0 1em 0;
+      li {
+        display: inline;
+        a {
+          span{ display: none; }
+          &::before{
+            font-family: Fontello;
+            font-style: normal;
+            font-weight: normal;
+            text-decoration: inherit;
+            margin-right: .2em;
+            font-size: 2em;
+          }
+          &.linkedin::before { content: '\e802'; }
+          &.facebook::before { content: '\e801'; }
+          &.twitter::before { content: '\e800'; }
+        }
+      }
+    }
+
+    @include breakpoint(26em 38em) {  
+      .contact {
+        p {
+          float: left;
+          width: 48%;
+          margin-right: 2%;
+        }
+        p.contact {
+          width: 100%;
+          margin-right: 0;
+          clear: both;
+          @include pie-clearfix;
+          br { display: none; }
+        }
+        
+      }
+    }
+    @include breakpoint(38em $tab) {  
+      .contact {
+        width: 100%;
+        @include pie-clearfix;
+        p {
+          float: left;
+          width: 30%;
+          margin-right: 3%;
+        }
+      }
+    }
+
+  }
+  // SITEMAP & CAREERS
+  .l-region--doormat-middle {
+    padding-top: 2em;
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin-top: 0;
+      margin-bottom: 2em;
+
+      li a {
+        display: block;
+        padding: .2em 0;
+        border-bottom: 1px solid $grey-light;
+      }
+    }
+    h2 {
+      margin-bottom: .2em;
+    }
+    p {
+      margin-bottom: .2em;
+    }
+  }
+
+  // SOLUTIONS & SERVICES
+  .l-region--doormat-right {
+    padding-top: 2em;
+    h2{
+      border-bottom: 1px solid $grey-light;
+      padding-bottom: .2em;
+      margin-bottom: .2em;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0; 
+      li {
+        margin-bottom: .1em;
+        a:before {
+          content: '\e808';
+          font-family: Fontello;
+          font-style: normal;
+          font-weight: normal;
+          text-decoration: inherit;
+          margin-right: .5em;
+          @include opacity(.5);
+        }
+      }
+    }
+    p {
+      margin-bottom: .2em;
+    }
+  }

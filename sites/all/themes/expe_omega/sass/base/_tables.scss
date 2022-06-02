@@ -1,0 +1,36 @@
+// TABLE
+table {
+  max-width: 100%;
+  width: 100%;
+  background-color: transparent;
+  margin-bottom: $vert-spacing-unit;
+  @include inner-table-borders(1px, $grey-light);
+  @include outer-table-borders(1px, $grey-light);
+
+  // CAPTION
+  caption {
+    font-style: italic;
+    padding-bottom: 8px;
+  }
+
+  // BODY
+  th { text-align: left;}
+  td, th {
+    padding: 8px;
+    line-height: 1.428571429;
+    vertical-align: top;
+  }
+
+  // HEAD
+  thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dddddd;
+  }
+
+  // ZEBRA
+  tbody > tr:nth-child(odd) > td,
+  tbody > tr:nth-child(odd) > th {
+    background-color: #f9f9f9;
+  }
+
+}

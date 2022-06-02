@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the fo2_content feature.
+ */
+
+include_once 'fo2_content.features.inc';

@@ -1,0 +1,38 @@
+.front {
+  .l-region--title {
+    padding-top: 3em;
+
+    > div {
+      @include breakpoint($tab, true){
+        max-width: 85%;
+        margin: 0 auto;
+      }
+      @include breakpoint($wide, true){
+        max-width: 60%;
+        margin: 0 auto;
+      }
+    }
+
+      h1 {
+        text-transform: uppercase;
+        margin-bottom: 0;
+        font-size: 1em;
+        line-height: 1;
+        font-family: $proximanova;
+      }
+      h2 {
+        font-family: $proximanovasoft;
+        font-size: 2.4em; 
+        line-height: 1.2;
+        margin-bottom: .5em;
+      }
+  }
+
+  .l-intro {
+    margin-top: 0;
+    // padding: 0 0 6em 0;
+    // background: url(../images/bgr-cta.gif) bottom center repeat-x;
+    padding: 0;
+    background: transparent;
+  }
+}

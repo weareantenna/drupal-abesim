@@ -1,0 +1,159 @@
+/*******************************************************************************
+ * divine.layout.scss
+ *
+ * Styling of the "divine" layout demonstrating the golden rule and asymmetric
+ * grids with Singularity.
+ ******************************************************************************/
+/* line 14, ../../../sass/layouts/clean/clean.layout.scss */
+.l-header,
+.l-main,
+.container {
+  width: 94%;
+  margin: 0 auto;
+  max-width: 78em;
+  *zoom: 1; }
+  /* line 38, ../../../../../../../../../../Users/SDF/.rvm/gems/ruby-1.9.3-p551@omega.expe_omega/gems/compass-core-1.0.1/stylesheets/compass/utilities/general/_clearfix.scss */
+  .l-header:after,
+  .l-main:after,
+  .container:after {
+    content: "";
+    display: table;
+    clear: both; }
+
+/* line 54, ../../../sass/layouts/clean/clean.layout.scss */
+.l-header {
+  margin-bottom: 2em; }
+
+/* line 58, ../../../sass/layouts/clean/clean.layout.scss */
+.l-content {
+  width: 100%;
+  float: right;
+  margin-left: 0;
+  margin-right: 0;
+  clear: none;
+  padding-right: 0; }
+
+/* line 63, ../../../sass/layouts/clean/clean.layout.scss */
+.has-one-sidebar .l-content {
+  width: 50%;
+  float: left;
+  margin-right: -100%;
+  clear: none;
+  padding-right: 3em; }
+/* line 66, ../../../sass/layouts/clean/clean.layout.scss */
+.has-one-sidebar .l-region--sidebar-first {
+  width: 50%;
+  float: right;
+  margin-left: 0;
+  margin-right: 0;
+  clear: none;
+  padding-right: 0; }
+
+/* line 73, ../../../sass/layouts/clean/clean.layout.scss */
+.l-main.split {
+  text-align: center; }
+  /* line 76, ../../../sass/layouts/clean/clean.layout.scss */
+  .l-main.split a {
+    color: #56465e; }
+    /* line 24, ../../../../../../../../../../Users/SDF/.rvm/gems/ruby-1.9.3-p551@omega.expe_omega/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_link-colors.scss */
+    .l-main.split a:hover {
+      color: #b3c428; }
+  /* line 80, ../../../sass/layouts/clean/clean.layout.scss */
+  .l-main.split .button {
+    border: 2px solid #56465e;
+    box-shadow: none;
+    color: #56465e;
+    background: transparent;
+    text-transform: none;
+    text-shadow: none;
+    font-weight: 600; }
+    /* line 88, ../../../sass/layouts/clean/clean.layout.scss */
+    .l-main.split .button:hover {
+      color: #fff;
+      background: #56465e; }
+  /* line 94, ../../../sass/layouts/clean/clean.layout.scss */
+  .l-main.split .block-solutions h2 {
+    display: none; }
+  /* line 95, ../../../sass/layouts/clean/clean.layout.scss */
+  .l-main.split h2 {
+    font-size: 2em;
+    margin-bottom: .5em; }
+  /* line 96, ../../../sass/layouts/clean/clean.layout.scss */
+  .l-main.split .sub {
+    width: 65%;
+    min-height: 95px;
+    margin: 0 auto 1em auto;
+    font-size: 1.3em; }
+  /* line 104, ../../../sass/layouts/clean/clean.layout.scss */
+  .l-main.split ul {
+    list-style-type: none;
+    padding: 0; }
+  /* line 110, ../../../sass/layouts/clean/clean.layout.scss */
+  .l-main.split .block--views {
+    margin-top: 2em; }
+
+/* line 115, ../../../sass/layouts/clean/clean.layout.scss */
+.split {
+  padding-top: 2em; }
+  /* line 118, ../../../sass/layouts/clean/clean.layout.scss */
+  .split ul {
+    width: 46%;
+    margin: 0 auto;
+    text-align: left;
+    padding-left: 2em; }
+  /* line 124, ../../../sass/layouts/clean/clean.layout.scss */
+  .split .js-split ul {
+    float: left;
+    margin-left: 4%; }
+    /* line 127, ../../../sass/layouts/clean/clean.layout.scss */
+    .split .js-split ul.listright {
+      margin: 0; }
+  /* line 131, ../../../sass/layouts/clean/clean.layout.scss */
+  .split .block--views {
+    margin-top: 4em; }
+
+/* line 137, ../../../sass/layouts/clean/clean.layout.scss */
+.split {
+  padding-top: 8em; }
+
+/* line 145, ../../../sass/layouts/clean/clean.layout.scss */
+.visual {
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; }
+  /* line 154, ../../../sass/layouts/clean/clean.layout.scss */
+  .visual .solutions,
+  .visual .services {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    top: 0;
+    background-size: cover;
+    background-position: top center;
+    background-repeat: no-repeat; }
+  /* line 164, ../../../sass/layouts/clean/clean.layout.scss */
+  .visual .solutions {
+    left: 0;
+    background-image: url(../../../images/visual-solutions.jpg);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=25);
+    opacity: 0.25; }
+    /* line 168, ../../../sass/layouts/clean/clean.layout.scss */
+    .visual .solutions.shine {
+      filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=55);
+      opacity: 0.55; }
+  /* line 172, ../../../sass/layouts/clean/clean.layout.scss */
+  .visual .services {
+    right: 0;
+    background-image: url(../../../images/visual-services.jpg);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=15);
+    opacity: 0.15; }
+    /* line 176, ../../../sass/layouts/clean/clean.layout.scss */
+    .visual .services.shine {
+      filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=30);
+      opacity: 0.3; }
+
+/*# sourceMappingURL=clean.layout.no-query.css.map */

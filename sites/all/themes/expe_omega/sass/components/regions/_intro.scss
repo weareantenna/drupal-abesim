@@ -1,0 +1,27 @@
+.l-intro {
+  background: $grey-ultra;
+  padding: 2em 0;
+  margin: 2em 0;
+  text-align: center;
+
+  a {
+    color: $green-dark;
+    &:hover { color: $green; }
+  }
+
+  .l-region > div {
+    font-size: 1.2em;
+    @include breakpoint($tab, true){
+      max-width: 85%;
+      margin: 0 auto;
+    }
+    @include breakpoint($wide, true){
+      max-width: 70%;
+      margin: 0 auto;
+    }
+  }
+}
+
+.has_background_image + .l-intro {
+  margin-top: -2em;
+}

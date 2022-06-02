@@ -1,0 +1,278 @@
+<?php
+
+/**
+ * Implements hook_init().
+ */
+function o2_abesim_init() {
+ /*
+  $currentnode = menu_get_object();
+  dpm($currentnode->field_contact);
+  * 
+  */
+}
+
+/**
+ * Implements hook_block_info().
+ *
+ * Provide basic page/node info in blocks so they can be used by contexts.
+ */
+function o2_abesim_block_info() {
+  $blocks['expe_title_subtitle'] = array(
+    'info' => t('Abesim: Title and subtitle'),
+    'cache' => DRUPAL_CACHE_PER_PAGE,
+  );
+	
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function o2_abesim_block_view($delta = '') {
+  // The $delta parameter tells us which block is being requested.
+  switch ($delta) {
+    case 'expe_title_subtitle':
+      $block['subject'] = '';
+      $block['content'] = o2_abesim_block_content_title_subtitle($delta);
+      break;
+	}
+	
+	return $block;
+}
+
+function o2_abesim_block_content_title_subtitle() {
+  $title = drupal_get_title();
+  $subtitle = '';
+
+  $node = menu_get_object();
+  if (!empty($node) && is_object($node) && is_numeric($node->nid)) {
+    $title = $node->title;
+    $subtitle = field_get_items('node', $node, 'field_subtitle');
+    if (isset($subtitle[0]['safe_value']) && !empty($subtitle[0]['safe_value'])) {
+      $subtitle = $subtitle[0]['safe_value'];
+    }
+    else {
+      $subtitle = '';
+    }
+  }
+
+  $markup = '';
+  if (!empty($title)) {
+    $markup .= '<h1>' . $title . '</h1>';
+  }
+  if (!empty($subtitle)) {
+    $markup .= '<h2>' . $subtitle . '</h2>';
+  }
+
+  $result = array('#markup' => $markup);
+  return $result;
+}
+
+/**
+ * Implements hook_preprocess_region().
+ */
+function o2_abesim_preprocess_region(&$variables) {
+	if ($variables['region'] == 'highlighted') {
+		$node = menu_get_object();
+		if (!empty($node) && is_object($node) && is_numeric($node->nid)) {
+			$image = field_get_items('node', $node, 'field_header');
+			if (isset($image[0]['uri']) && !empty($image[0]['uri'])) {
+				$url = image_style_url('o2_header', $image[0]['uri']);
+				$variables['attributes_array']['style'][] = 'background-image:url(' . $url . ')';
+				$variables['attributes_array']['class'][] = 'has_background_image';
+			}
+		}
+	}
+}
+
+/**
+ * Implements hook_node_presave().
+ *
+ * Prevent any user from publishing the default nodes.
+ */
+function o2_abesim_node_presave($node) {
+	if ($node->type == 'page') {
+		// prevent
+		$uuids = _o2_abesim_default_uuids();
+		//$entities = entity_uuid_load('node', $uuids);
+    $entities = entity_uuid_load('node', array($uuids['contact'][$node->language]));
+		if (in_array($node->nid, array_keys($entities))) {
+			drupal_set_message('The node you edited is a default node and can\'t be published', 'warning');
+			$node->status = 0;
+		}
+		
+		//
+    if (!isset($node->nid) || empty($node->nid)) {
+      
+      $field_items_values = field_get_items('node', $node, 'field_contact');
+      $value = $field_items_values[0]['value'];
+      if(isset($value) && $value == 1){
+      
+        $entities = entity_uuid_load('node', array($uuids['contact'][$node->language]));
+        if (!empty($entities) && is_array($entities)) {
+          $default_node = array_pop($entities);
+          if (!empty($default_node) && is_object($default_node)) {
+            $node->webform = $default_node->webform;
+          }
+        }
+        
+      }
+    }
+	}
+}
+
+/**
+ *
+ */
+function o2_abesim_node_insert($node) {
+
+}
+
+/**
+ * Implements hook_node_access().
+ *
+ * Prevent any user from deleting the default nodes.
+ * User 1 (the superuser) can always bypass access hooks.
+ */
+function o2_abesim_node_access($node, $op, $account) {
+	if ($op == 'delete') {
+		$uuids = _o2_abesim_default_uuids();
+		$entities = entity_uuid_load('node', array($uuids['contact'][$node->language]));
+		if (in_array($node->nid, array_keys($entities))) {
+			return NODE_ACCESS_DENY;
+		}
+	}
+	
+	return NODE_ACCESS_IGNORE;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() 
+ * 
+ * Conditionally prevent default uuid's (node) deletion.
+ * Hide the delete button for ALL users.
+ */
+function o2_abesim_form_node_delete_confirm_alter(&$form, $form_state) {
+  //watchdog('o2_abesim', serialize($form['#node']->uuid));
+  $uuids = _o2_abesim_default_uuids();
+ 
+
+  if (in_array($form['#node']->uuid, array_values($uuids['contact']))) {
+    //watchdog('o2_abesim', serialize($form['#node']->uuid));
+    //Set explanatory message
+    $form['o2_abesim_default_UUID_warning'] = array(
+       '#markup' => t('Default uuids (nodes) kunnen niet gedelete worden'),
+       '#weight' => -10,
+    );
+
+    //Remove the 'This action cannot be undone' message
+    unset($form['description']);
+
+    //Remove the delete button
+    unset($form['actions']['submit']);   
+    
+  } 
+  
+}
+
+/**
+ * Implements hook_ds_fields_info().
+ */
+function o2_abesim_ds_fields_info($entity_type) {
+	$fields = array(
+		'o2_abesim_contact_concat' => array(
+			'title' => t('Contact concat'),
+			'field_type' => DS_FIELD_TYPE_FUNCTION,
+			'ui_limit' => array('service|full', 'page|full'),
+			'function' => 'o2_abesim_theme_contact_concat',
+		)
+	);
+	
+	return array('node' => $fields);
+}
+
+/**
+ * DS_FIELD_TYPE_FUNCTION function
+ */
+function o2_abesim_theme_contact_concat(&$field) {
+	$text = !empty($field['entity']->field_contact_text[LANGUAGE_NONE]) ? $field['entity']->field_contact_text[LANGUAGE_NONE][0]['safe_value'] : NULL;
+	$nid = !empty($field['entity']->field_contact_form[LANGUAGE_NONE]) ? $field['entity']->field_contact_form[LANGUAGE_NONE][0]['target_id'] : NULL;
+	
+	if (empty($text) && empty($nid)) {
+		return NULL;
+	}
+	
+	return $text . l(t('Contact us here'), 'node/' . $nid);
+}
+
+/**
+ * Implements hook_ds_field_theme_function_info().
+ */
+function o2_abesim_ds_field_theme_functions_info() {
+	return array(
+		'o2_abesim_service_type_custom' => t('Service type custom')
+	);
+}
+
+/**
+ * Field theming function for Service type full.
+ */
+function o2_abesim_service_type_custom($variables) {
+	global $language;
+	$object = $variables['element']['#object'];
+	$output = NULL;
+	
+	if (!empty($object->field_type[LANGUAGE_NONE])) {
+		switch ($object->field_type[LANGUAGE_NONE][0]['value']) {
+			case 'diagnostics':
+        $default_node = _o2_abesim_load_node_by_uuid('ad9338ca-1633-4bfc-bc76-6c4da62b55c6');
+        $translated_node = translation_node_get_translations($default_node->tnid);
+				break;
+			case 'management':
+        $default_node = _o2_abesim_load_node_by_uuid('0db68f73-14f5-425e-9cf5-513111fe89fb');
+        $translated_node = translation_node_get_translations($default_node->tnid);
+				break;
+		}
+
+    if ($translated_node[$language->language]->nid) {
+      $node = node_load($translated_node[$language->language]->nid);
+    }
+    else {
+      $node = node_load($default_node->nid);
+    }
+    $view = node_view($node, 'full');
+    $output = drupal_render($view);
+	}
+	
+	return $output;
+}
+
+/**
+ * Helper function that holds the uuids for the default nodes.
+ */
+function _o2_abesim_default_uuids() {
+	return array(
+		'contact' => array(
+			'nl' => 'd82e995b-0ba0-4d1c-98fe-6d3ea87c8996',
+      'fr' => '663c1041-e595-4831-bcd7-48cab6d2af99',
+      'en' => 'd813b701-6dcb-44e6-98dd-9b55e0cb2355',
+      'pl' => 'a41d29bd-9bba-4ad0-85b9-ff109a3e87f5',
+      
+		),
+	);
+}
+
+/**
+ * Helper function to load a node by its uuid.
+ */
+function _o2_abesim_load_node_by_uuid($uuid) {
+	$result = db_select('node', 'n')
+	  ->fields('n', array('nid'))
+		->condition('uuid', $uuid)
+		->execute()
+		->fetchAll();
+	
+	$result = reset($result);
+
+	return node_load($result->nid);
+}

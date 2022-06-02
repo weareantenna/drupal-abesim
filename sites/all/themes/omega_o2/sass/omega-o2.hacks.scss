@@ -1,0 +1,46 @@
+// Hide the toolbar or admin menu on small screens.
+@media all and (max-width: 800px) {
+  #toolbar, #admin-menu {
+    display: none;
+  }
+
+  html {
+    body.toolbar, body.admin-menu {
+      padding-top: 0 !important;
+      margin-top: 0 !important;
+    }
+  }
+}
+
+/********************************/
+/* Authors extra (Hall of fame) */
+/********************************/
+
+/* Clearfix */
+
+.node--page .field-name-field-authors:after,
+.node--page .field-name-field-authors-extra:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Margins and border */
+
+.node--page .field-name-field-authors-extra {
+  margin-top: 25px;
+  padding-top: 25px;
+  border-top: 1px solid #cd0013;
+}
+
+/* Copy heading style from .field-name-field-authors */
+
+.node--page .field-name-field-authors-extra .label-abovec {
+  margin-bottom: -0.5em;
+  display: block;
+  font-size: 1.375em;
+  padding: 0;
+  font-weight: 400;
+  clear: both;
+  line-height: 1.6em;
+}

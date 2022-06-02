@@ -1,0 +1,22 @@
+.pager{
+  padding: 2em 0;
+
+  li {
+    padding: 0;
+
+    a {
+      border: 1px solid $grey-ultra;
+      padding: 0.5em 1em;
+      @include link-colors($grey-dark, $red);
+    }
+
+    &.pager__item--current {
+      background: $grey-ultra;
+      border: 1px solid $grey-ultra;
+      padding: 0.5em 1em;
+      @include border-radius(4px);
+      font-weight: 300;
+      color: $grey-dark;
+    }
+  }
+}

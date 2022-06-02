@@ -1,0 +1,42 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for the Termcase module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function termcase_install() {
+  $vocabularies = taxonomy_get_vocabularies();
+  foreach ($vocabularies as $vid => $vocabulary) {
+    _termcase_vocabulary_termcase($vocabulary->machine_name, TERMCASE_NONE);
+  }
+  $t = get_t();
+  drupal_set_message($t('You can now define Termcase settings per vocabulary on the <a href="@vocabularies">taxonomy settings</a> page.', array('@vocabularies' => url('admin/structure/taxonomy'))));
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function termcase_uninstall() {
+  module_load_include('module', 'termcase');
+  $vocabularies = taxonomy_get_vocabularies();
+  foreach ($vocabularies as $vid => $vocabulary) {
+    _termcase_vocabulary_termcase_delete($vocabulary->machine_name);
+  }
+}
+
+/**
+ * Update the variables to use machine names.
+ */
+function termcase_update_7001() {
+  $vocabularies = taxonomy_get_vocabularies();
+  foreach ($vocabularies as $vid => $vocabulary) {
+    $vocabulary_name = $vocabulary->machine_name;
+    if (variable_get('taxonomy_vocabulary_' . $vocabulary_name . '_termcase', NULL) == NULL) {
+      variable_set('taxonomy_vocabulary_' . $vocabulary_name . '_termcase', variable_get('taxonomy_vocabulary' . $vid . '_termcase', NULL));
+    }
+    variable_del('taxonomy_vocabulary' . $vid . '_termcase');
+  }
+}

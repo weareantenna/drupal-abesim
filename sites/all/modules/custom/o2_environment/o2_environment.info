@@ -1,0 +1,3 @@
+name = O2 Environment
+description = O2 Agency environment switching helper module
+core = 7.x

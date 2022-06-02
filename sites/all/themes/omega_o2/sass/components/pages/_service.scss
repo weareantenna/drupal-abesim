@@ -1,0 +1,169 @@
+// SERVICE OVERVIEW TEASER
+.view-service {
+
+  .views-row {
+    .node--service.node-teaser {
+      .field-name-field-thumbnail {
+        text-align: center;
+        margin-bottom: 1.25em;
+        @include breakpoint($small-tab, true) {
+          margin-left: 2.25em;
+          display: inline;
+          float: right;
+          max-width: 33.33%;
+        }
+        img {
+          @include border-radius(4px);
+          border: 1px solid $grey-light;
+          margin-top: .5em;
+          display: inline-block;
+        }
+      }
+    }
+
+    &.views-row-even {
+      .node--service.node-teaser {
+        .field-name-field-thumbnail {
+          @include breakpoint($small-tab, true) {
+            margin-left: 0;
+            margin-right: 2.25em;
+            float: left;
+          }
+        }
+        .field-name-node-link {
+          clear: left;
+        }
+      }
+    }
+
+    .field-name-node-link {
+      a {
+        color: $base-text-color;
+        font-weight: 700;
+        font-size: .875em;
+        padding: .5em 1em .5em 0;
+        &:before {
+          content: "\f138";
+          font-family: FontAwesome;
+          font-size: 1.1em;
+          margin-right: .5em;
+          &:hover {
+            color: $red;
+          }
+        }
+        &:hover {
+          color: $red;
+        }
+      }
+    }
+  }
+}
+
+// SERVICE OVERVIEW GRID
+body.not-front {
+
+  .view-service {
+
+    .views-row {
+      float: left;
+
+      @include breakpoint($small-tab $tab-tab-desk) {
+        & + .views-row-2 {
+          border-top: none;
+          margin-top: 0;
+          padding-top: 0;
+        }
+        width: 46%;
+        margin-left: 8%;
+        &:nth-child(2n+1) {
+          margin-left: 0;
+          clear: left;
+        }
+        .field-name-title {
+          height: 4.75em;
+        }
+      }
+      @include breakpoint($tab-tab-desk) {
+        & + .views-row-2,
+        & + .views-row-3 {
+          border-top: none;
+          margin-top: 0;
+          padding-top: 0;
+        }
+        width: 30%;
+        margin-left: 5%;
+        &:nth-child(3n+1) {
+          margin-left: 0;
+          clear: left;
+        }
+        .field-name-title {
+          height: 4.75em;
+          overflow: hidden;
+        }
+      }
+
+      .field-name-field-thumbnail {
+        img {
+          @include border-radius(8px);
+          border: 1px solid $grey-light;
+          margin-top: .5em;
+          display: inline-block;
+        }
+      }
+      .field-name-node-link {
+        margin-top: 1.5em;
+      }
+    }
+  }
+}
+
+
+
+// SERVICE DETAIL
+.node-type-service {
+
+  .l-content {
+    img {
+      @include border-radius(4px);
+      border: 1px solid $grey-light;
+      margin-top: .5em;
+      margin-bottom: 1em;
+    }
+
+    .field-name-field-thumbnail {
+      //background-color: green;
+      //text-align: center;
+      //width: 100%;
+      @include breakpoint($small-tab, true) {
+        display: inline-block;
+        float: right;
+        max-width: 40%;
+        padding-left: 2.25em;
+      }
+      + h2, + h3, + h4,
+      + h2 + h3, + h2 + h4,
+      + h2 + h3 + h4,
+      + h3 + h4 {
+        display: inline-block;
+      }
+
+    }
+
+    // Werkwijze & visie
+    .node--block {
+      margin-top: 2.5em;
+      border-top: 1px solid $grey-light;
+      padding-top: 2.5em;
+      img {
+        @include breakpoint($small-tab, true) {
+          display: inline-block;
+          float: left;
+          max-width: 40%;
+          height: auto;
+          margin-right: 2.25em;
+        }
+      }
+    }
+  }
+
+}

@@ -1,0 +1,22 @@
+.view-downloads {
+  .ds-2col {
+    border-bottom: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+
+    border-top: 1px solid $grey-ultra;
+    margin-top: 2em;
+    padding-top: 2em;
+
+    .group-left {
+      width: 15%;
+    }
+    .group-right {
+      width: 85%;
+      padding-left: 1em;
+
+      .field--name-field-subtitle { margin-bottom: 1em; }
+
+    }
+  }
+}

@@ -1,0 +1,53 @@
+.pager {
+  margin-top: $large-vert-spacing-unit;
+  border-top: 1px solid $grey-light;
+  padding-top: $large-vert-spacing-unit;
+  font-weight: 400;
+  font-size: .875em;
+  margin-bottom: -$big-vert-spacing-unit;
+
+  .pager__item {
+    padding: 0;
+    a {
+      color: $grey;
+      padding: .5em 1em;
+      margin: 0;
+      &:hover {
+        color: $base-link-color;
+      }
+    }
+    &.pager__item--current {
+      color: $base-text-color;
+      font-weight: 700;
+      padding: .25em 1em;
+    }
+    &.pager__item--first a:before {
+      content: "\f0d9\ \f0d9";
+      font-family: FontAwesome;
+      font-weight: 100;
+      font-size: .75em;
+      margin-right: .5em;
+    }
+    &.pager__item--previous a:before {
+      content: "\f0d9";
+      font-family: FontAwesome;
+      font-weight: 100;
+      font-size: .75em;
+      margin-right: .5em;
+    }
+    &.pager__item--next a:after {
+      content: "\f0da";
+      font-family: FontAwesome;
+      font-weight: 100;
+      font-size: .75em;
+      margin-left: .5em;
+    }
+    &.pager__item--last a:after {
+      content: "\f0da\ \f0da";
+      font-family: FontAwesome;
+      font-weight: 100;
+      font-size: .75em;
+      margin-left: .5em;
+    }
+  }
+}

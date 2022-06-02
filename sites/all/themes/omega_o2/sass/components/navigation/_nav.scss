@@ -1,0 +1,246 @@
+// MAIN NAVIGATION
+.l-region--navigation {
+
+  margin-top: 2.5em;
+  font-weight: 900;
+  font-size: .9em;
+  line-height: 1.5em;
+  color: $white;
+  padding: .5em 1em;
+  padding-bottom: 3em;
+  margin-left: .75em;
+
+  .menu .expanded,
+  .menu .leaf {
+    list-style: none
+  }
+
+  ul li {
+    font-size: .925em;
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+      text-align: left;
+      margin-bottom: .5em;
+      //font-weight: 700;
+      li {
+        margin: 0;
+        padding: 0;
+        display: block;
+        margin-bottom: .00125em;
+        margin-left: 1em;
+        position: relative;
+
+        &:before {
+          content: "\f054";
+          font-family: FontAwesome;
+          font-size: .75em;
+          margin-left: -1em;
+          margin-right: .575em;
+        }
+        ul {
+          li {
+            font-size: 1.2em;
+            ul {
+              li {
+                font-size: .925em;
+                &:before {
+                  content: "\f0da";
+                  font-family: FontAwesome;
+                  font-size: .625em;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  li.split, li.split-end {
+    font-weight: 400;
+    &:before {
+      content: "";
+      margin: 0;
+    }
+  }
+  .nolink {
+    font-size: 1.2em;
+    font-weight: 700;
+  }
+  .active {
+    color: $white;
+  }
+
+  a {
+    //background-color: yellow;
+    padding: 5px 1.5em 4px 0;
+    color: $white;
+  }
+}
+
+@include breakpoint($tab, true) {
+  .off-canvas {
+    float: right;
+      .l-region--navigation {
+        padding: 0;
+        float: right;
+        font-weight: 700;
+
+        ul {
+          position: relative;
+          padding: 0;
+          margin: 1em 0 0 0;
+          @include breakpoint($tab-desk) {
+            margin: 1.25em 0 0 0;
+          }
+
+
+          li {
+            position: relative;
+            display: inline;
+            margin-left: .75em;
+            font-size: .875em;
+
+            @include breakpoint($tab-tab-desk) {
+              margin-left: 1.5em;
+              font-size: .95em;
+            }
+            @include breakpoint($tab-desk) {
+              margin-left: 2.5em;
+              font-size: 1.1em;
+            }
+
+            a {
+              color: $base-text-color;
+              padding: .75em 0 .25em;
+              border-bottom: 2px solid transparent;
+              &.active,
+              &.active-trail {
+                color: $red-dark;
+                border-bottom: 2px solid $red-dark;
+              }
+              &:hover {
+                color: $red;
+                border-bottom: 2px solid $red;
+              }
+            }
+            &.megadropdown > .menu {
+              margin-top: 5px;
+              border: 1px solid $red-dark;
+              background-color: rgba(255,255,255, .95);
+              @include breakpoint($tab-desk, true) {
+                margin-top: .75em;
+              }
+            }
+
+            // SUBMENU - MEGADROPDOWN
+            ul {
+              display: none;
+              position: absolute;
+              z-index: -10;
+              left: 0;
+              top: 13px;
+              //top: 1.25em;
+              margin: 0;
+              margin-bottom: .5em;
+              padding: 1em;
+              text-align: left;
+              min-width: 5em;
+              font-size: 1.05em;
+              color: $base-text-color;
+              line-height: 1.45em;
+              @include breakpoint($tab-tab-desk) {
+                font-size: .95em;
+              }
+              @include breakpoint($tab-desk, true) {
+                line-height: 1.55em;
+                font-size: .85em;
+              }
+
+              li {
+                display: block;
+                padding: 0;
+                margin-left: 0;
+                &:before {
+                  color: $grey;
+                }
+
+                a {
+                  @include transition-duration(.2s);
+                  color: $base-text-color;
+                  border-bottom: 0;
+                  &.active-trail {
+                    color: $base-text-color;
+                    border-bottom: 0;
+                  }
+                  &.active,
+                  &:hover {
+                    color: $red-dark;
+                    border-bottom: 0;
+                  }
+
+                }
+                &.last {
+                  //margin-bottom: 0;
+                }
+
+                // SUBSUBMENU
+                ul {
+                  display: block;
+                  position: relative;
+                  padding: 0 1em;
+                  top: 0;
+                }
+              }
+            }
+            // HOVER FOR SUBMENU
+            @include breakpoint($tab, true) {
+              &:hover {
+                ul.menu {
+                  display: block;
+                  z-index: 10;
+                  //@include transition-duration(.1s);
+                  @include transition(position, 2s, ease, .1s);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+}
+
+// TAB&DESK ONLY
+@include breakpoint($tab 74.4em){
+  /*
+  .site-logo {
+    display: block;
+    width: 100%;
+    padding: 1em 0 0 0;
+    text-align: center;
+  }
+  */
+  .off-canvas {
+    //width: 100%;
+    //text-align: center;
+    //margin-bottom: 1em;
+  }
+}
+
+// WIDE
+@include breakpoint($wide, true){
+  /*
+  .site-logo {
+    float: left;
+  }
+  */
+  .off-canvas,
+  .l-region--header,
+  .l-region--navigation {
+    //float: right;
+  }
+}
+

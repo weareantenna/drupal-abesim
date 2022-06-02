@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the fo2_homepage feature.
+ */
+
+include_once 'fo2_homepage.features.inc';

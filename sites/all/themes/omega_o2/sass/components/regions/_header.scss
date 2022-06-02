@@ -1,0 +1,115 @@
+.l-header {
+  //background-color: $white;
+  //position: relative;
+  font-weight: 600;
+  color: $base-text-color;
+  z-index: 20;
+
+  ul, ol {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    li {
+      margin: 0;
+      padding: 0;
+
+    }
+  }
+
+  a {
+    //color: $base-text-color;
+  }
+
+  // LOGO
+  .l-branding {
+    float: left;
+    margin: .75em 0;
+    .site-logo {
+      img {
+        max-height: 50px;
+        width: auto;
+        @include breakpoint($small-tab) {
+          max-height: 75px;
+        }
+        @include breakpoint($tab-desk) {
+          max-height: 100%;
+          height: auto;
+          width: auto;
+        }
+      }
+    }
+    @include breakpoint($tab-tab-desk, true) {
+      margin: .75em .25em .625em 0;
+      display: inline-block;
+    }
+  }
+
+  // LANGUAGE
+  .l-region--header {
+    position: absolute;
+    top: 12px;
+    right: 5%;
+    z-index: 30;
+    color: $white;
+    .logged-in & {
+      @include breakpoint(800px, true) {
+        top: 12px + 29px;
+      }
+    }
+    // Contextual cog wheel
+    > .block--locale > .contextual-links-wrapper {
+      right: -25px;
+    }
+    ul {
+      text-align: right;
+      li {
+        display: inline-block;
+        text-transform: uppercase;
+        font-size: .675em;
+        font-weight: 400;
+        &:after {
+          content: "-";
+          margin-left: 2px;
+          color: $white;
+        }
+        &:last-child:after {
+          content: "";
+          margin: 0;
+        }
+        a {
+          color: $white;
+          padding: 1px 0;
+          border: 1px solid transparent;
+          &:hover {
+            color: $grey-ultra;
+          }
+          &.active,
+          &.active-trail {
+            font-weight: 900;
+          }
+        }
+      }
+    }
+    @include breakpoint($tab, true) {
+      color: $base-text-color;
+      ul {
+        li {
+          &:after {
+            color: $base-text-color;
+          }
+          a {
+            color: $base-text-color;
+            &.active,
+            &.active-trail {
+              font-weight: 900;
+            }
+            &:hover {
+              color: $red;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

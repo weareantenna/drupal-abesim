@@ -1,0 +1,40 @@
+<?php
+
+/**
+ * Implements hook_install().
+ *
+ * Setup basic things.
+ * @todo: Move things to features if possible.
+ * @todo: Create and setup shortcut sets for admin, content admin, user admin.
+ */
+function o2_install() {
+  // Set JQuery version to 1.7 because 1.8 Breaks the views (and media that uses views) module.
+  variable_set('jquery_update_jquery_version', '1.7');
+
+  module_load_include('inc', 'shortcut', 'shortcut.admin');
+  $shortcut_set = shortcut_set_load('shortcut-set-1');
+  unset($shortcut_set->links[1]);
+  $shortcut_links = array(
+    array(
+      'link_title' => 'Blokken',
+      'link_path' => 'admin/structure/block',
+      'menu_name' => $shortcut_set->set_name,
+    ),
+    array(
+      'link_title' => 'Menu',
+      'link_path' => 'admin/structure/menu',
+      'menu_name' => $shortcut_set->set_name,
+    ),
+    array(
+      'link_title' => 'Taxonomy',
+      'link_path' => 'admin/structure/taxonomy',
+      'menu_name' => $shortcut_set->set_name,
+    ),
+  );
+  foreach ($shortcut_links as $shortcut_link) {
+    shortcut_admin_add_link($shortcut_link, $shortcut_set, shortcut_max_slots());
+  }
+  shortcut_set_save($shortcut_set);
+
+  module_enable(array('o2_base'));
+}

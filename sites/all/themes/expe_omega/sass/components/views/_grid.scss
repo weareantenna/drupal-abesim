@@ -1,0 +1,65 @@
+.grid {
+
+  float: left;
+  clear: both;
+  width:  100%;
+  @include pie-clearfix;
+
+
+  // MOBILE
+  .views-row {
+    float: left;
+    width: 100%;
+    margin-bottom: 2em;
+  }  
+
+  // TAB
+  @include breakpoint(32em $desk) {
+
+    .views-row {
+      float: left; 
+      width: 49%;
+      margin-right: 2%;
+
+      // ODDS
+      &.views-row-odd {
+        clear: both;
+      }
+      // EVENS
+      &.views-row-even,
+      &:nth-child(even){
+        margin-right: 0;
+        &:after{
+          content:'';
+          clear: both;
+          width: 100%;
+        }
+      }    
+    }    
+  }
+  // DESK & BEYOND
+  @include breakpoint($desk, true) {
+
+    .views-row {
+      float: left; 
+      width: 23.5%;
+      margin-right: 2%;
+
+
+      &:nth-child(4n+1),
+      &.fifth {  // todo add class with JS
+        clear: both;
+      }
+
+      // LASTS,
+      &.views-row-4,
+      &.views-row-8,
+      &.views-row-12
+      &.views-row-16
+      &.views-row-20,
+      &.views-row-last {
+        margin-right: 0;
+      }      
+    }      
+  }
+}

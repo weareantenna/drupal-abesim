@@ -1,0 +1,65 @@
+<?php
+/**
+ * @file
+ * Code for the fo2_block feature.
+ */
+
+include_once 'fo2_block.features.inc';
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function fo2_block_form_block_node_form_alter(&$form, &$form_state) {
+  $form['#after_build'][] = 'fo2_block_hide_path_settings';
+}
+
+/**
+ * Hide path settings because blocks are never shown directly to users.
+ */
+function fo2_block_hide_path_settings($form, &$form_state) {
+  $form['path']['#access'] = FALSE;
+  return $form;
+}
+
+function fo2_block_block_info() {
+  $nids = array();
+  $query = db_select('node', 'n');
+  $query->condition('n.type', 'block');
+  $query->fields('n', array('nid'));
+  $result = $query->execute()->fetchAll();
+  foreach ($result as $row) {
+    $nids[] = $row->nid;
+  }
+  $blocks = array();
+  $nodes = node_load_multiple($nids);
+  foreach ($nodes as $node) {
+    if (!empty($nodes) && is_array($nodes)) {
+      $blocks['o2_block_' . $node->uuid] = array(
+        'info' => 'O2 Block: ' . $node->title,
+      );
+    }
+  }
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function fo2_block_block_view($delta = '') {
+  if (stristr($delta, 'o2_block_')) {
+    $uuid = str_replace('o2_block_', '', $delta);
+    $block['subject'] = '';
+    $block['content'] = fo2_block_block_content_block($uuid);
+    return $block;
+  }
+}
+
+function fo2_block_block_content_block($uuid) {
+  global $language;
+  $nodes = entity_uuid_load('node', array($uuid));
+  $node = array_pop($nodes);
+  if ($node->language == $language->language) {
+    $view = node_view($node);
+    return array('#markup' => drupal_render($view));
+  }
+}

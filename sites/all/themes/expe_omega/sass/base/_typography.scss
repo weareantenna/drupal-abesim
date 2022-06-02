@@ -1,0 +1,85 @@
+/**
+ * $BASE-TYPOGRAPHY
+ */
+body {
+  line-height: 1.5;
+  font-family: $proximanova;
+  font-weight: 300;
+  color: $purple-extra-dark;
+}
+
+* {
+    &::-moz-selection { background-color: $green; color: $white; }
+    &::selection { background-color: $green; color: $white; }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 1em 0;
+  clear: both;
+  font-family: $proximanovasoft;
+  font-weight: 600;
+}
+
+h1 {
+  font-size: 2.4em; 
+  line-height: 1.2;
+  margin-bottom: .5em;
+}
+
+h2 {
+  font-size: 1.6em; // 24/16
+  line-height: 1.2;
+}
+
+h3 {
+  font-size: 1.3em; // 21/16
+  margin-bottom: .5em;
+}
+
+h4 {
+  font-size: 1.2em; // 18/16
+  margin-bottom: .5em;
+}
+
+h5 {
+  font-size: 1em; // 16/16
+}
+
+h6 {
+  font-size: 0.875em; // 14/16
+}
+
+strong{
+  font-weight: 600;
+}
+
+ul li,
+ol li {
+  margin-bottom: .5em;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: $vert-spacing-unit;
+}
+
+a {  
+  @include transition-property(color);
+  @include transition-duration(.5s);
+  @include link-colors($purple-dark, $green);
+  text-decoration: none;
+
+  img{ vertical-align: top; }
+}
+.l-content a {
+  @include link-colors($green-dark, $green);
+}
+
+// HORIZONTAL RULES
+hr {
+  margin: $vert-spacing-unit 0;
+  border: 0;
+  border-top: 1px solid $grey-ultra;
+  width: 100%;
+  clear: both;
+}

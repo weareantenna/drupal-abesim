@@ -1,0 +1,243 @@
+@include breakpoint($wide, true){
+
+  @media (max-height: 800px){
+    html { height: 100%; }
+    .front {
+
+      height: 100%;
+
+      body, .l-page {
+        height: 100%;
+      }
+      .l-region--highlighted  {
+        height: 100%;
+        .block--views,
+        .block__content,
+        .view-showcases,
+        .view-content {
+          height: 100%;   
+        }
+      }
+      .owl-carousel,
+      .owl-wrapper {
+        display: block;
+        height: 100%;
+        max-height: 100%;
+        z-index: 100;
+      }
+      .owl-carousel .owl-wrapper-outer {
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        max-height: 100%;
+      }
+    }
+  }
+}
+
+.owl-item {
+  position: relative;
+  text-align: center;
+  //background: $grey-ultra;
+  background: white;
+  height: 100%;
+  max-height: 100%;
+
+
+  // color overlay
+  .field--type-image {
+    .field__item {
+      // background-color: rgba(0, 0, 0, 0.10);
+
+    // background:
+    //   linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0) 25%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0.2));
+    
+    }
+  }
+
+  // blurry text box
+  .text .field__item {
+    // box-shadow: 0 0 100px 71px rgba(0, 0, 0, 0.15);
+    // background-color: rgba(0, 0, 0, 0.15);
+  }
+
+  // GRID FIX
+  &:before {
+    // width: 100%;
+    // background: url(../images/grid.png) 0 repeat;
+    // content: '';
+    // position: absolute;
+    // left: 0;
+    // right: 0;
+    // top: 0;
+    // bottom: 0;
+    // z-index: -1;
+  }
+
+  // GRID FIX IMAGES
+  .lazyOwl {
+    position: relative;
+    z-index: -2;
+  }
+
+  .text {
+    position: absolute;
+    z-index: 0;
+    bottom: 20%;
+    left: 0;
+    right: 0;
+    width: 100%;
+
+    @include breakpoint(30em){
+      bottom: 25%;
+    }
+    @include breakpoint($desk, true){  
+      bottom: 30%;  
+
+      @media (min-height: 680px){
+        bottom: 35%;
+      }
+      @media (min-height: 720px){
+        bottom: 40%;
+      }
+    }
+
+    .field {
+      max-width: 70%;
+      margin: 0 auto;
+    }
+
+    .field--name-field-subtitle {
+      font-family: $proximanovasoft;
+      font-weight: 400;
+      font-size: 1.8em; 
+      line-height: 1.1;
+      margin-bottom: .5em;
+      color: $white;
+      text-shadow: 1px 1px 6px rgb(125,125,125);
+      text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.5);      
+      filter: glow(color=666666,strength=1);
+
+      @include breakpoint(34em, true){
+        font-size: 1.6em;
+        margin-bottom: 1em;
+      }
+      @include breakpoint($tab, true){
+        font-size: 2em;
+      }
+      @include breakpoint($desk, true){
+        font-size: 3.6em;
+      }
+    }
+    .button {
+      background: transparent;
+      color: $white;
+      text-shadow: 0px 0px 6px rgb(125,125,125);
+      text-shadow: 0px 0px 6px rgba(0, 0, 0, 0.5);        
+      filter: glow(color=666666,strength=1); 
+      -moz-box-shadow: none;
+      -webkit-box-shadow: none;
+      -o-box-shadow: none;
+      box-shadow: none;
+      border: 2px solid $white;
+      &:hover {
+        background: $white;
+        color: $purple-dark;        
+        text-shadow: none;
+      }
+    }
+
+  }
+  .field--name-field-header img {
+    margin: 0;
+    vertical-align: top;
+    //max-height: 100%;
+    //width: auto;
+  }
+}
+
+.owl-controls {
+
+  .owl-buttons {
+
+    div {
+      border-radius: 0 !important;
+      height: 100%;
+      margin: 0 !important;
+      padding: 0 !important;
+      position: absolute;
+      top: 0;
+      width: 25%;
+      text-indent: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      background-color: transparent!important;
+
+      &.owl-prev {
+        left: 0;
+      }
+
+      &.owl-next {
+        right: 0;
+      }
+    }
+  }
+}
+
+.owl-controls .owl-pagination {
+
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  bottom: 1em;
+  @include breakpoint($tab, true){
+    bottom: 1em;
+  }
+  @include breakpoint($desk, true){
+    bottom: 1.4em;
+  }
+
+  .owl-page span {
+    width: 66px;
+    height: 6px;
+    @include border-radius(3px);
+    background: $white;
+  }
+
+  @include breakpoint($tab, true){
+    &:before {
+      content: "\e80a"; 
+      font-size: 3em;
+      color: $white;
+      font-family: Fontello;
+      font-style: normal;
+      font-weight: normal;
+      text-decoration: inherit;
+      position: absolute;
+      z-index: 1;
+      left: 0;
+      right: 0;
+      bottom: 120%;
+      text-align: center;
+      @include breakpoint($desk, true){
+        @media (min-height: 720px){
+          bottom: 200%;
+        }
+      }
+    }
+  }
+
+}
+
+
+@include breakpoint(0 $tab){
+
+  .owl-item .text {
+    bottom: 35%;    
+    .field--name-field-subtitle { display: none; }
+  }
+
+  .owl-controls { display: none !important; }
+
+}

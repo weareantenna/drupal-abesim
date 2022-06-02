@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the fo2_person feature.
+ */
+
+include_once 'fo2_person.features.inc';

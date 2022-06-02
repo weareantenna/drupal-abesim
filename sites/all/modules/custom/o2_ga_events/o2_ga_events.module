@@ -1,0 +1,144 @@
+<?php
+
+/**
+ * Implements hook_google_analytics_et_api().
+ */
+function o2_ga_events_google_analytics_et_api() {
+
+  /*
+  $uuid = '61f60015-fc77-416f-9fa7-4f8a21139338';
+  $entities = entity_uuid_load('node', array($uuid));
+  $node = array_pop($entities);
+
+  $selectors = array(
+    array(
+      'event' => 'mousedown',
+      'selector' => '#webform-client-form-' . $node->nid . ' #edit-submit',
+      'category' => 'contact form',
+      'action' => 'click',
+      'label' => 'algemeen contactformulier',
+      'value' => 0,
+      'noninteraction' => TRUE,
+    ),
+  );
+  return $selectors;
+  */
+
+
+  $uuids = array(
+    'fd4d7e00-d1ba-4740-9674-b2b3116ab8cb' => 'Algemeen contactformulier (NL)',
+    'e9f065c4-0a14-448d-8c5e-6a3cdbefb9c9' => 'Indicatief onderzoek (NL)',
+    '37a30a0e-d2da-43db-8e56-2e4265595b0b' => 'Afperkend onderzoek (NL)',
+    '223d6a84-a069-43b4-835c-55a092307724' => 'Risicoanalyse (NL)',
+    'a2a7ec7e-df10-4ee8-8edd-ff4df4492963' => 'Ecotoxicologische analyse (NL)',
+    'd317f9a2-2eb8-4e5c-99fc-15e52fea0be4' => 'Onderwaterbodems - slib en sediment (NL)',
+    'c1111ef8-b675-4aae-b185-420723f788f9' => 'Trillingsanalyse (NL)',
+    '6999ed28-49d4-47bc-b0bb-997971b41903' => 'Luchtdichtheidsanalyses gebouwen - blowerdoor tests (NL)',
+    '0c778a65-d048-4e5c-a450-2887ac46c549' => 'Thermografie (NL)',
+    '1c9090c9-8290-4fe2-b407-3a103294274b' => 'Plaatsbeschrijving (NL)',
+    '45102d76-87d7-4ba8-ae04-606e878af21b' => 'Diepsonderingen - penetratietests (NL)',
+    '7ec75ad2-0188-47d2-b219-cd55c5acfaf9' => 'Boringen (NL)',
+    '9c2e9a16-be26-48e5-aac1-3f937a7e2f42' => 'Grondwatermonitoring (NL)',
+    '518c2c3e-99d2-4e4e-a3f2-6d37948b2134' => 'Infiltratietest - pompproef (NL)',
+    'a8a6d14b-c881-4266-a9f9-e6bce1eade43' => 'Grondmechanische karakteristieken (labo) (NL)',
+    'bc964394-e020-4e3c-a1da-f10929fc7668' => 'Bodemsanerings ontwerp - beheer van verontreinigde bodems (NL)',
+    'add0be7c-7287-49e4-9e1a-9c09ad19982d' => 'Projectmanagement bodemsanering (NL)',
+    '3e87d1e8-5203-4a1d-9ccb-5d9e0fdc0e79' => 'Grondtransport - grondverzet (NL)',
+    'c892cbb5-938f-4a9f-9f5b-69251f194fae' => 'Calamiteiten (NL)',
+    '1e2b81cc-fe0d-4c38-95d4-9b0afb23c207' => 'Expertise - arbitrage - second opinion (NL)',
+    '1df69b6b-cad9-41f8-a95c-034913e9338e' => 'Geothermie (NL)',
+    '309dfd9b-4d7d-4949-a553-1d583a4c2dda' => 'Sloopinventaris (NL)',
+    'b8a007ba-ee5e-451c-bda4-4aaddecfbc92' => 'Asbest (NL)',
+    'c5e2d53f-6e01-40e2-ae48-9c7efe25e2ad' => 'Vergunningsstudies (NL)',
+
+    '61f60015-fc77-416f-9fa7-4f8a21139338' => 'Formulaire de contact général (FR)',
+    'c57e9eef-8881-43cd-ac3d-7395feba83b2' => 'Etude indicative (FR)',
+    '58e7b177-aae7-4bfd-9195-cf07bab2a19e' => 'Etude de délimitation de pollution – étude de caractérisation (FR)',
+    '4dc103b2-d3a4-42e6-a02b-e031cda1e51d' => 'Analyses des risques (FR)',
+    'ba50ffa9-a5c0-4b6f-93ca-cf4ee8aa76d2' => 'Analyse écotoxicologique (FR)',
+    '074c7858-4a79-4add-ad59-ffdd60dbbdea' => 'Boues et sédiments (FR)',
+    '2551b036-9a28-449a-92df-65a90614321c' => 'Mesures de vibrations (FR)',
+    '8aac479c-ad63-4dbe-9f79-7d4331c004e3' => 'Infiltrométrie des bâtiments - Test porte soufflante (FR)',
+    '96e62711-dddd-4830-881e-a7c0a04d485b' => 'Mesures thermographiques (FR)',
+    '8dc31099-1272-496c-bb4d-01c96be01595' => 'Etat des lieux (FR)',
+    '1505c82d-26f5-4266-9bfc-3e6c3d38442b' => 'Essais de pénétration (FR)',
+    'dfc1c144-84e7-4853-8070-85f41540e58f' => 'Forages (FR)',
+    '2baedd29-7f90-40fc-b498-f81b18028fe8' => 'Surveillance des eaux souterraines (FR)',
+    'add4338a-e467-4722-b715-a4b447e614b1' => 'Test d\'infiltration - essais de pompage (FR)',
+    '471eae73-e94b-4b61-ada5-dab676fbafd7' => 'Essais géomécaniques en laboratoire (FR)',
+    'ed0b2417-a5b5-4975-9277-d65d3ac7dcfb' => 'Projet d\'assainissement – gestion des sols pollués (FR)',
+    'ca00a44b-ea77-4e90-b0b2-4698ea5e0237' => 'Gestion de projet d\'aassainissement de sols (FR)',
+    '5cd892f4-c528-459b-adfc-09e306ecd6c2' => 'Transport et gestion de sol (FR)',
+    '38c7f773-2159-46fc-a4bd-bdf2029df97f' => 'Sinistres (FR)',
+    'f4456b8b-ce42-44de-ae5b-3e35933c1ec7' => 'Expertise - Arbitrage - Contre-expertise (FR)',
+    '93483df5-b76b-435f-b06b-332ec9a1bf54' => 'Géothermie (FR)',
+    '6d00f41d-67df-46f9-b1a8-3dbeaa7d66ba' => 'Inventaire avant démolition (FR)',
+    'ea437410-c68e-46c2-b477-bc0279d7f783' => 'Amiante (FR)',
+    'b464fde3-879f-49d8-ba0d-67e6bdf6eeb2' => 'Dossier d\'autorisation (FR)',
+
+    '28f17259-0df2-45fb-89d9-d70a3b3f1d9b' => 'General contact form (EN)',
+    'd1795fa6-b0c9-4c1e-86b7-269d4ed2da58' => 'Soil Screening (EN)',
+    'e16ed9c1-9dd8-4e82-9f0d-f21d03981f66' => 'In depth contamination study (EN)',
+    '6fbc8542-a596-40e0-b5aa-f8f2400449cf' => 'Risk analysis (EN)',
+    '6bd15ad9-b25a-4f25-844e-3f0381f56b92' => 'Eco toxicological analysis (EN)',
+    'd8a54994-436f-4a6f-b203-8a38df69aa99' => 'Subaqueous soil - sludge - and sediment (EN)',
+    '20c78dec-fd94-45b7-a3c6-f9c01c821d08' => 'Vibration analysis (EN)',
+    'b3c9ae4d-1150-4611-b56b-104d65204f95' => 'Blower door test - air leakage/tightness test (EN)',
+    '826846e0-d3b2-4cb8-bcfc-787c24593d34' => 'Thermography (EN)',
+    '239769e2-7edf-47b8-8992-90adb9c55a7d' => 'Inspection report (EN)',
+    '1843e91b-ec36-45a0-86a6-fc92daabfcf4' => 'Cone penetration test - Dynamic penetration test (EN)',
+    '8294619c-8f8d-4f88-96be-8ceb03558c99' => 'Drillings (EN)',
+    '8f03e9d0-c6d0-4040-be92-f4996b100dc4' => 'Groundwater monitoring (EN)',
+    'a1626412-5df0-4c11-ada0-25ab57da038a' => 'Infiltration test - pumping test (EN)',
+    '5b502d68-bf68-4cba-81ce-7ad32886fac3' => 'Geotechnical characteristics (lab) (EN)',
+    'a734e6a9-cd4b-459c-a580-c15a8fa30ea3' => 'Soil decontamination project - management (EN)',
+    '7a573963-f168-4661-b5ed-ba95782d4bc9' => 'Project management environmental remediation (EN)',
+    '303cf9a1-9bcc-4953-a79f-9a54567deca1' => 'Ground transportation - earthmoving (EN)',
+    '601aea1c-96b5-4376-9894-eb8633ce805a' => 'Environmental incidents (EN)',
+    'a7a09e58-0cb5-4ee9-b436-e5a62688c185' => 'Expertise - arbitrage - second opinion (EN)',
+    'b4145eea-5fee-4870-8b9c-f706993dc788' => 'Geothermal energy (EN)',
+    '94f65d8b-7069-491c-bc03-16d37d743e58' => 'Demolition inventory (EN)',
+    'b5ecf51f-79f0-43e3-828e-b7b511ba46b7' => 'Asbestos (EN)',
+    '39acf892-8485-4cc7-897d-319c03aeac14' => 'Permit studies (EN)',
+
+    '579b7a9c-bf95-4bd0-b52d-8e8551eb7d88' => 'Ogólna formularza kontaktowego (PL)',
+    '599a0f89-2bfc-4536-9144-b5b69e8ba8a4' => 'Badania wstępne gleby (PL)',
+    '7005b57f-868f-489d-be5e-2ff121c73ec4' => 'Szczegółowe badanie zanieczyszczenia gleby (PL)',
+    '6f6ab63a-cda9-4125-aded-e5a26a1e364f' => 'Analiza ryzyka (PL)',
+    '668d00c5-f1b5-475d-9ace-46a45d8192db' => 'Badania ekotoksykologiczne (PL)',
+    'a045f6e1-76e6-4cbc-b395-1512bddeda5f' => 'Osady denne (PL)',
+    'fb1b016e-b8f5-46e4-98c7-f5d972501289' => 'Analiza i badania wibracji (PL)',
+    '6771ae9b-856e-498f-b8a2-5723b14ce832' => 'Test szczelności powietrznej budynku – test Blower Door (PL)',
+    '60a96933-1296-4d52-a9d6-a8df215f3872' => 'Pomiary termograficzne (PL)',
+    '1c073673-2c04-45a2-9b69-6bd7ec68673a' => 'Planowanie inwestycji – raport wstępny (PL)',
+    '2283f23a-2a91-48a2-8974-02970078e8d6' => 'Geotechnika – sondowanie CPT (PL)',
+    '09c4e7bf-5981-48ba-ac42-412c14d0839d' => 'Odwierty geologiczne (PL)',
+    '0c9723c9-30ee-4e65-aad5-2dee607b7a19' => 'Monitoring wód gruntowych (PL)',
+    '75d48ac0-fb7c-48bf-9ff4-7c139c36cde3' => 'Testy infiltracji (PL)',
+    'b9d71a65-64d5-4076-a346-47b4dea231e1' => 'Badania laboratoryjne parametrów geotechnicznych (PL)',
+    'ceacc39c-916f-42bc-bbf0-3fc3bf6ab686' => 'Planowanie i zarządzanie projektami – oczyszczanie gleb (PL)',
+    '0c2dc085-2758-4303-bb36-52ac90e9f029' => 'Zarządzanie projektami – Rekultywacja (PL)',
+    'ee00bf72-8a02-4103-8671-73e6e7904a81' => 'Przemieszczanie mas ziemnych (PL)',
+    '9876fdd5-35f7-4614-bc54-ff5d06a12732' => 'Usuwanie skutków wypadków i katastrof (PL)',
+    'df266f2f-03a6-44b0-b60c-bf7090069b94' => 'Ekspertyzy – arbitraż – niezależne opinie (PL)',
+    'f3914694-ad9f-4a43-a5f0-0360ed519303' => 'Energia Geotermalna (PL)',
+    '2fe4b109-06d2-4a89-be7c-a2d191488349' => 'Inwentaryzacja budynku przed wyburzeniem (PL)',
+    '42d62b01-69fc-4ad4-943d-e12d00091e2e' => 'Azbest (PL)',
+    'ff3348bc-b4a7-48ba-8835-f965c7d154d9' => 'Przygotowanie dokumentacji do pozwoleń (PL)',
+  );
+
+  $selectors = array();
+
+  foreach ($uuids as $uuid => $label) {
+    $selectors[] = array(
+      'event' => 'mousedown',
+      'selector' => '#webform-uuid-' . $uuid . ' .form-submit',
+      'category' => 'contact form',
+      'action' => 'click',
+      'label' => $label,
+      'value' => 0,
+      'noninteraction' => TRUE,
+    );
+  }
+  return $selectors;
+}

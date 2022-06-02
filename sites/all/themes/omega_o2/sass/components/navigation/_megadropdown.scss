@@ -1,0 +1,37 @@
+@include breakpoint($tab) {
+  .megadropdown > .menu {
+    width: 22.5em;
+    @include breakpoint($tab-tab-desk) {
+      width: 28em;
+    }
+    @include breakpoint($tab-desk) {
+      width: 32em;
+    }
+    @include breakpoint($desk) {
+      //width: 28em;
+    }
+    &:after {
+      content: '';
+      position: absolute;
+      background-color: $grey-light;
+      left: 50%;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      opacity: .325;
+    }
+    .nolink {
+      color: $base-text-color;
+    }
+    .split {
+      float: left;
+      width: 49%;
+      margin-right: 2%;
+    }
+    .split-end {
+      float: left;
+      width: 49%;
+      padding-left: 1em;
+    }
+  }
+}

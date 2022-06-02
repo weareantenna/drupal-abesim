@@ -1,0 +1,125 @@
+@include breakpoint($wide, true) {
+  // blurry text box
+  .l-header {
+    // box-shadow: 0 0 100px 71px rgba(0, 0, 0, 0.15);
+    // background-color: rgba(0, 0, 0, 0.15);
+  }
+}
+
+
+// MOBILE > _offcanvas.scss
+
+// TAB, DESK & BEYOND
+@include breakpoint($tab, true){
+  .site-logo {
+    padding: 1em 0 0 0;
+  }
+  .off-canvas {
+    ul {
+      position: relative;
+      list-style-type: none;
+      padding: 0;
+      margin: 3.4em 0 0 0;
+
+      li {
+        position: relative;
+        display: inline;
+        padding: .5em 0.5em 0.5em;;
+        margin-right: .25em;
+
+        a {
+          font-size: 1.2em;
+          color: $purple-dark;
+          padding-bottom: 2px;
+          border-bottom: 2px solid transparent;
+
+          &:hover {
+            color: $green-dark;
+          }
+
+          &.active-trail {
+            font-weight: 600;
+            border-color: $purple-dark;       
+          }
+        }
+
+        &:hover {
+          background: $grey-ultra;
+        }
+
+        // SUBMENU
+        ul{
+          display: none;
+          position: absolute;
+          z-index: 9;
+          left: 0;
+          margin: 0;
+          padding: 1em;
+          background-color: $grey-ultra;
+          text-align: left;
+          min-width: 240px;
+
+          li {
+            display: block;
+            padding: 0;
+
+            a {
+              color: $purple-dark;
+              border-bottom: 0;
+            }
+            &.last {
+              margin-bottom: 0;
+            }
+            &:hover {
+              color: $green-dark;
+              background: transparent;
+            }
+
+            // SUBSUBMENU
+            ul{
+              display: block;
+              position: relative;
+              padding: 0 1em;
+            } 
+          } 
+        }       
+        // HOVER FOR SUBMENU
+        @include breakpoint ($tab, true){   
+          &:hover {
+            ul.menu {
+              display: block;
+            } 
+          }  
+        }          
+      }
+    }    
+  }
+}
+
+// TAB&DESK ONLY
+@include breakpoint($tab 74.4em){
+  .site-logo {
+    display: block;
+    width: 100%;
+    padding: 1em 0 0 0;
+    text-align: center;
+  }
+  .off-canvas {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 1em;
+  }
+}
+
+// WIDE
+@include breakpoint($wide, true){
+  .site-logo {
+    float: left;
+  }
+  .off-canvas,
+  .l-region--header, 
+  .l-region--navigation {
+    float: right;
+  }
+}
+

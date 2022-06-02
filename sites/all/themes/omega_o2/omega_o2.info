@@ -1,0 +1,43 @@
+name = Omega O2
+description = Please provide a description for your theme.
+base theme = omega
+screenshot = screenshot.png
+engine = phptemplate
+core = 7.x
+
+; ========================================
+; Stylesheets
+; ========================================
+stylesheets[all][] = css/omega-o2.normalize.css
+stylesheets[all][] = css/omega-o2.hacks.css
+stylesheets[all][] = css/omega-o2.styles.css
+stylesheets[all][] = css/omega-o2.no-query.css
+
+;stylesheets[all][] = livechat/external_lib.css
+
+; ========================================
+; Scripts
+; ========================================
+
+;scripts[] = livechat/external_lib.js
+
+scripts[] = js/omega-o2.behaviors.js
+
+; ========================================
+; Regions
+; ========================================
+;regions[branding] = Branding
+regions[header] = Header
+regions[navigation] = Navigation
+regions[breadcrumb] = Breadcrumb
+regions[highlighted] = Highlighted
+regions[help] = Help
+regions[content] = Content
+regions[sidebar_first] = First Sidebar
+regions[sidebar_second] = Second Sidebar
+regions[lowlighted] = Lowlighted
+regions[doormat_left] = Doormat Left
+regions[doormat_middle] = Doormat Middle
+regions[doormat_right] = Doormat Right
+regions[footer] = Foote
+regions[cookie_law] = Cookie law message

@@ -1,0 +1,125 @@
+// THE TRIGGER
+.trigger {
+  display: none;
+  position: absolute;
+  z-index: 999;
+  top: 1.125em;
+  right: 10%;
+  padding: .5em 1em;
+  margin-right: -1em;
+  background: transparent;
+  color: $red-dark;
+  text-decoration: none;
+  font-family: $base-font-family;
+  font-weight: 700;
+  @include border-radius(8px);
+  @include breakpoint($small-tab){
+    top: 1.75em;
+    right: 8%;
+  }
+
+  &:before{
+    content:'\f0c9';
+    font-family: FontAwesome;
+    speak: none;
+    display: inline-block;
+    font-size: 1.25em;
+  }
+  &:hover {
+    color: $red;
+  }
+}
+
+// KICK IN
+@include breakpoint(0 $tab){
+
+  // SHOW TRIGGER
+  .trigger { display: block; }
+
+
+  // PREPARE THE MENU
+  .off-canvas {
+    position: absolute;
+    z-index: 0;
+    left: -280px;
+    top: 0;
+    width: 280px;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    background-color: $red;
+    background-image:  url(../bg.png);
+    background-repeat: repeat;
+
+
+
+    a {
+      //color: $white;
+      -webkit-tap-highlight-color: $red-ultra;
+    }
+  }
+
+  // PREPARE THE PAGE TO ANIMATE OUT
+  .l-page {
+    -webkit-transition: -webkit-transform .1s;
+    -moz-transition: -moz-transform .1s;
+    -ms-transition: -moz-transform .1s;
+    -o-transition: -o-transform .1s;
+    transition: transform .1s;
+  }
+}
+
+// TRIGGERED
+html.js-nav-open {
+  height: 100%;
+  overflow: hidden;
+  @include breakpoint($tab, true){
+    overflow: scroll;
+  }
+
+  // TRIGGER
+  .trigger{
+    @include transition-property(left);
+    @include transition-duration(.5s);
+    left: 0;
+    &::before{
+      content:'\f057';
+      font-family: FontAwesome;
+      font-size: 1.25em;
+    }
+  }
+
+  // PREPARE THE BODY
+  body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    @include breakpoint($tab, true){
+      overflow: scroll;
+    }
+  }
+  .l-page {
+    position: relative;
+    height: 100%;
+  }
+
+  // THE PAGE
+  @include breakpoint(0 $tab){
+    .l-page {
+      // ANIMATE IN
+      -webkit-transition: -webkit-transform .25s ease-in;
+      -moz-transition: -moz-transform .25s ease-in;
+      -ms-transition: -moz-transform .25s ease-in;
+      -o-transition: -o-transform .25s ease-in;
+      transition: transform .25s ease-in;
+      // MOVE
+      -webkit-transform: translate3d(280px, 0, 0);
+      -moz-transform: translate3d(280px, 0, 0);
+      -ms-transform: translate3d(280px, 0, 0);
+      -o-transform: translate3d(280px, 0, 0);
+      transform: translate3d(280px, 0, 0);
+    }
+  }
+
+}
+

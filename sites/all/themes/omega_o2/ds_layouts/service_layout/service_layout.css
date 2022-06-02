@@ -1,0 +1,21 @@
+/**
+ * @file
+ * Styling for the custom-layout template.
+ */
+
+.service-layout > .group-header-left {
+  width: 49%;
+  float: left;
+}
+
+.service-layout > .group-header-right {
+  width: 49%;
+}
+
+.service-layout > .group-middle {
+  clear: both;
+}
+
+.service-layout > .group-footer {
+  clear: both;
+}

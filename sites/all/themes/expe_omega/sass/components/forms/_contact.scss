@@ -1,0 +1,9 @@
+.l-main {
+	.contact-personal, .contact-information {
+	
+		@include breakpoint($tab, true) {
+			float: left;
+			width: 45%;
+		}
+	}
+}

@@ -1,0 +1,5 @@
+.user-login {
+  @include breakpoint(560px) {
+    width: 50%;    
+  }
+}

@@ -1,0 +1,63 @@
+.block-past {
+  border-top: 1px solid $grey-ultra;
+  margin-top: 4em;
+  padding-top: 4em;
+}
+
+.block-upcoming h2.block__title,
+.block-past h2.block__title {
+  text-align: center;
+  //background: $grey-ultra;
+  margin-bottom: 2em;
+  
+  &:before{
+    font-family: "fontello";
+    font-style: normal;
+    font-weight: normal;
+    speak: none;
+    display: inline-block;
+    text-decoration: inherit;
+    margin-right: .5em;
+  }
+}
+
+.block-upcoming h2.block__title:before { content:'\e80f'; }
+.block-past h2.block__title:before { content:'\e810'; }
+
+// CTA intro
+.l-region--intro .view-cta {
+  form {
+
+    @include breakpoint(36em){
+      max-width: 80%; 
+    }   
+    margin: 1em auto 0 auto;
+
+    div{ display: inline; }
+    label { display: none; }
+    .form-text {
+      width: 60%;
+    }
+    @include breakpoint($desk, true){   
+      input.form-text {
+        margin-top: -1px;
+        padding: .45em .5em;
+        height: 42px;
+        float: left;
+        border-right: 0;
+      }
+      input.form-submit {
+        padding: .5em;
+        height: 40px;
+        float: left;
+        background: $purple-dark;
+        color: $white;
+        text-transform: none;
+
+        &:hover {
+          background: $purple;
+        }
+      }
+    }
+  }  
+}

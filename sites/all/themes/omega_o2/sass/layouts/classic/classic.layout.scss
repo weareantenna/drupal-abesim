@@ -1,0 +1,129 @@
+/*******************************************************************************
+ * divine.layout.scss
+ *
+ * Styling of the "divine" layout demonstrating the golden rule and asymmetric
+ * grids with Singularity.
+ ******************************************************************************/
+@import "compass";
+@import "breakpoint";
+@import "singularitygs";
+
+// include the site variables
+@import "../../variables/*";
+
+//.l-header,
+//.l-region--navigation,
+//.l-breads,
+.l-intro .l-region,
+.l-main,
+.l-cta .l-region,
+.l-team .l-region,
+.l-footer,
+.container,
+.l-region--title .block-subtitle {
+  @include container;
+}
+
+
+// 2 COLS
+@include breakpoint(0 $small) {}
+
+// 6 COLS
+@include breakpoint($small $small-tab) {}
+
+@include breakpoint($small-tab $tab) {
+
+  // FOOTER
+  .l-region--doormat-left {
+    @include grid-span(3, 1);
+  }
+  .l-region--doormat-middle {
+    @include grid-span(3, 4);
+  }
+  .l-region--doormat-right {
+    @include grid-span(6, 1);
+    clear: left;
+  }
+}
+
+// 12 COLS
+@include breakpoint($tab $desk) {
+
+  // HEADER
+  .l-header {
+    @include grid-span(12, 1);
+  }
+
+  // CONTENT
+  .l-content {
+    @include grid-span(12, 1);
+  }
+
+  // FOOTER
+  .l-region--doormat-left {
+    @include grid-span(6, 1);
+  }
+  .l-region--doormat-middle {
+    @include grid-span(6, 7);
+  }
+  .l-region--doormat-right {
+    @include grid-span(12, 1);
+  }
+}
+
+@include breakpoint($tab-tab-desk $desk) {
+
+  // FOOTER
+  .l-region--doormat-left {
+    @include grid-span(3, 1);
+  }
+  .l-region--doormat-middle {
+    @include grid-span(3, 4);
+  }
+  .l-region--doormat-right {
+    @include grid-span(6, 7);
+  }
+}
+
+// 24 COLS
+@include breakpoint($desk, true) {
+
+  // HEADER
+  .l-header {
+    @include grid-span(24, 1);
+  }
+
+  // CONTENT
+  .l-content {
+    @include grid-span(24, 1);
+  }
+
+  // DOORMAT
+  .l-region--doormat-left {
+    @include grid-span(6, 1);
+  }
+  .l-region--doormat-middle {
+    @include grid-span(6, 7);
+  }
+  .l-region--doormat-right {
+    @include grid-span(12, 13);
+  }
+}
+
+
+/*
+@include breakpoint(30em $tab) {
+  // DOORMAT
+  .l-region--doormat-left {
+    @include grid-span(24, 1);
+  }
+  .l-region--doormat-middle {
+    @include grid-span(12, 1);
+    clear: right;
+  }
+  .l-region--doormat-right {
+    @include grid-span(12, 13);
+  }
+}
+*/
+

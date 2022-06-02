@@ -1,0 +1,22 @@
+li.ticker {
+  margin-right: .75em !important;
+  a { position: relative; }
+}
+
+.event_ticker {
+  font-size: .7em;
+  padding: 0 4px 0 4px;
+  background: $green;
+  color: $white;
+  @include border-radius(6px);
+}
+  nav .event_ticker {
+    display: block;
+    position: absolute;
+    top: -12px;
+    right: -15px;
+  }
+  h2 .event_ticker {
+    position: relative;
+    top: -14px;
+  }

@@ -1,0 +1,52 @@
+.filters,
+.view-filters {
+
+  width: 100%;
+  margin: 0 0 2em 0;
+  text-align: center;
+
+  // LIST
+  ul {
+    padding: 0;
+
+    li{
+      display: inline;
+      margin: 0 .5em 0 0;
+    }
+  }
+
+  // WIDGET
+  .views-exposed-widget {
+    float: none;
+    label { display: none; }
+  }
+  .views-widget .form-item {
+    display: inline;
+    margin: 0 .5em 0 0;
+
+  }
+
+  // LINKS
+  a {
+    background: $grey-light;
+    @include border-radius(6px);
+    padding: 3px 6px;
+    color: $purple-dark;
+
+    &:hover {
+      background: $purple;
+      color: $white;
+    }
+   }
+
+   .active a {
+    background: $purple-dark;
+    color: $white;
+   }
+}
+
+.l-intro + .l-main {
+  .filters {
+    margin-top: -2em;
+  }
+}

@@ -1,0 +1,95 @@
+form {
+  @include clearfix;
+  margin-bottom: $vert-spacing-unit;
+  fieldset {
+    border: none;
+    padding: 0;
+    margin: 0 0 1em;
+    //font-weight: 100;
+    legend {
+      font-weight: 400;
+      font-size: 1.375em;
+      margin: 0 0 .5em;
+      padding-top: 1em;
+    }
+  }
+  input, textarea {
+    padding: .125em .5em;
+  }
+  input[type='checkbox']{
+    margin-right: .75em;
+    + label {
+      font-weight: 300;
+    }
+    &:checked {
+      + label {
+        font-weight: 400;
+      }
+    }
+  }
+  input[type='text'],
+  input[type='email'],
+  textarea {
+    width: 100%;
+    max-width: 100%;
+    padding: .375em .75em;
+    outline: none;
+    border: 1px solid $grey-light;
+
+  }
+
+  input[type='submit'] {
+    clear: right;
+    float: right;
+    margin-top: 1em;
+    background-color: $red-dark;
+    color: $white;
+    font-weight: 700;
+    border: 1px solid $red;
+    padding: .25em 1em;
+    @include border-radius(4px);
+    &:hover,
+    &.active {
+      background-color: $red;
+      border: 1px solid $red-dark;
+      @include background-image(linear-gradient(to bottom, $red, $red-dark));
+    }
+  }
+
+  input[type=text], input[type='email'], input[type='submit'], textarea {
+    outline: none;
+  }
+  input.error,
+  textarea.error {
+    border: 1px solid $red-ultra;
+  }
+  input[type=text]:focus, input[type=email]:focus, textarea:focus {
+    //box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+    border: 1px solid $red-dark;
+    padding: .375em .75em;
+    outline: none;
+  }
+  input.error,
+  textarea.error {
+    border: 1px solid $red-ultra;
+  }
+
+  @include breakpoint($tab, true) {
+    .webform-component--meer-informatie,
+    .form-floater-left {
+      float: left;
+      width: 50%;
+      padding-right: 1em;
+    }
+    .webform-component--uw-gegevens,
+    .form-floater-right {
+      float: left;
+      width: 50%;
+    }
+
+
+  }
+
+
+
+}

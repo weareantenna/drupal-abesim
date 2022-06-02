@@ -1,0 +1,152 @@
+.l-highlighted {
+  background-color: $red;
+  float: left;
+  clear: left;
+  width: 100%;
+
+  .l-region--highlighted {
+
+    background-color: $red;
+    background-image:  url(../bg.png);
+    background-repeat: repeat;
+    border-top: 1px solid $red-dark;
+    border-bottom: 1px solid $red-dark;
+    &.has_background_image {
+      background-color: $background;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      border: none;
+    }
+  }
+  .block--o2-abesim-expe-title-subtitle {
+    @include container;
+    position: relative;
+    height: 8em;
+    @include breakpoint($small-tab $tab) {
+      height: 9.5em;
+    }
+    @include breakpoint($tab $tab-desk) {
+      height: 12em;
+    }
+    @include breakpoint($tab-tab-desk $tab-desk) {
+      height: 15em;
+    }
+    @include breakpoint($tab-desk, true) {
+      height: 16.5em;
+    }
+
+    h1 {
+      position: absolute;
+      left: 0;
+      bottom: .75em;
+      color: $white;
+    }
+  }
+}
+
+.service-overview {
+  .l-highlighted {
+    .block--o2-abesim-expe-title-subtitle {
+      height: auto;
+      margin-bottom: .75em;
+    }
+    h1 {
+      padding-top: 2.125em;
+      position: static;
+    }
+    .menu-block-wrapper {
+      padding-bottom: 2.25em;
+      font-size: 18px;
+      font-weight: 400;
+      color: $white;
+      a {
+        color: inherit;
+        padding-top: .25em;
+        padding-bottom: .25em;
+        &:hover,
+        &.active {
+          color: $white;
+          padding-bottom: 3px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+        }
+      }
+      .nolink {
+        font-size: 1.275em;
+        font-weight: 400;
+        @include breakpoint($tab, true) {
+          font-size: 1.325em;
+        }
+      }
+      ul, ol {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        font-size: .85em;
+        margin-bottom: 1em;
+        @include breakpoint($tab, true) {
+          font-size: .875em;
+        }
+        li {
+          margin: 0;
+          padding: 0;
+          display: block;
+          margin-bottom: .00125em;
+          padding-left: 1em;
+          &:before {
+            content: "\f054";
+            font-family: FontAwesome;
+            font-size: .75em;
+            color: rgba(255, 255, 255, 0.8);
+            margin-left: -1em;
+            margin-right: .575em;
+          }
+          ul ul > li:before {
+            content: "\f0da";
+          }
+        }
+      }
+
+      @include container;
+      ul {
+
+        li {
+          //font-size: 25px;
+
+          ul {
+            margin-top: .25em;
+
+            li {
+              //padding-left: 15px;
+              //font-size: 18px;
+              font-size: 1.2em;
+              ul {
+                //margin: 10px 0 20px;
+                li {
+                  //padding-left: 20px;
+                  //font-size: 15px;
+                  font-size: .95em;
+                }
+              }
+            }
+          }
+          &.split,
+          &.split-end {
+            @include breakpoint($small-tab, true) {
+              width: 50%;
+              float: left;
+            }
+            &:before {
+              content: "";
+            }
+          }
+          &.split-end {
+            @include breakpoint(0 $small-tab) {
+              margin-top: 2em;
+            }
+          }
+        }
+      }
+    }
+  }
+}

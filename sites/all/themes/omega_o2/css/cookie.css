@@ -1,0 +1,81 @@
+#cookieMessage {
+    /* < IE 9 */
+    background:transparent;
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000,endColorstr=#99000000); 
+    zoom: 1;
+    /* OTHER BROWSERS */
+    background: rgba(0,0,0,0.75);
+    bottom: 0;
+    min-height: 60px;
+    left: 0;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    font-family: sans-serif;
+}
+
+#cookieMessage a {
+    color: #FFFFFF;
+    text-decoration: underline;
+}
+
+#cookieAccept {
+  background: #333333;
+  border: 1px solid #FFFFFF;
+  border-radius: 4px 4px 4px 4px;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.9);
+  color: #FFFFFF;
+  font-size: 11px;
+  /*max-width: 100px;*/
+  padding: 7px 15px 5px 15px;
+  position: absolute;
+  display: inline;
+  right: 10px;
+  text-align: center;
+  text-transform: uppercase;
+  top: 2.5em;
+  cursor: pointer;
+}
+
+.cookieMessageContent {
+  width: 900px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.cookieMessageContent p {
+  color: #FFFFFF;
+  float: left;
+  font-size: 13px;
+  margin-right: 130px;
+  margin-top: 17px;
+  padding: 5px 15px;
+}
+
+@media screen and (max-width: 1019px) {
+  .cookieMessageContent {width: 100%;}
+  .cookieMessageContent p {margin-right: 22%;}
+}
+
+@media screen and (max-width: 767px) {
+  .cookieMessageContent {width: 100%;}
+  .cookieMessageContent p {margin-right: 26%;}
+}
+
+@media screen and (max-width: 660px) {
+  .cookieMessageContent {width: 95%; text-align: center; padding-bottom: 1em;}
+  .cookieMessageContent p {
+    margin-right: 0;
+    padding-left: 0;
+  }
+  #cookieAccept {
+    margin-bottom: 15px; 
+    margin-top: 15px;
+    right:0; 
+    top:0; 
+    position: relative; 
+    display: inline;
+    float:none;  
+    width: 100%;
+  }
+}

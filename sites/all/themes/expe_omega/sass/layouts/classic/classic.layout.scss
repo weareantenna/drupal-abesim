@@ -1,0 +1,73 @@
+/*******************************************************************************
+ * divine.layout.scss
+ *
+ * Styling of the "divine" layout demonstrating the golden rule and asymmetric
+ * grids with Singularity.
+ ******************************************************************************/
+@import "compass";
+@import "breakpoint";
+@import "singularitygs";
+
+// include the site variables
+@import "../../variables/*";
+
+.l-header,
+.l-breads,
+.l-intro .l-region,
+.l-main,
+.l-cta .l-region,
+.l-team .l-region,
+.l-footer,
+.container,
+.l-region--title .block-subtitle {
+  @include container;
+}
+
+@include breakpoint($tab, true) {  
+
+  // HEADER
+  .l-header {
+    margin-bottom: 2em;
+  }
+
+  // CONTENT
+  .l-content {
+    @include grid-span(24, 1);
+  }
+  // CONTENT WITH SIDEBARS
+  .has-one-sidebar {
+    .l-content {
+      @include grid-span(16, 1);
+    }
+    .l-region--sidebar-first {
+      @include grid-span(8, 17);
+    }
+  }
+
+  // DOORMAT
+  .l-region--doormat-left {
+    @include grid-span(8, 1);
+  }
+  .l-region--doormat-middle {
+    @include grid-span(8, 9);
+  }
+  .l-region--doormat-right {
+    @include grid-span(8, 17);
+  }
+}
+
+@include breakpoint(30em $tab) {  
+  // DOORMAT
+  .l-region--doormat-left {
+    @include grid-span(24, 1);
+  }
+  .l-region--doormat-middle {
+    @include grid-span(12, 1);
+    clear: right;
+  }
+  .l-region--doormat-right {
+    @include grid-span(12, 13);
+  }
+}
+
+

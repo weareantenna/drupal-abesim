@@ -1,0 +1,68 @@
+<?php
+
+/**
+ * Implements hook_install().
+ *
+ * Install the entire site here.
+ */
+function o2_base_install() {
+  // Setup base theme.
+  theme_enable(array('seven', 'expe_omega'));
+  theme_disable(array('bartik'));
+  variable_set('theme_default', 'expe_omega');
+  variable_set('admin_theme', 'seven');
+  variable_set('node_admin_theme', 1);
+
+  // Delete default node types in favor of our own.
+  node_type_delete('page');
+  node_type_delete('webform');
+  node_types_rebuild();
+
+  // Install languages, first language is default.
+  _o2_install_languages(array('en', 'nl', 'fr', 'de', 'es', 'pl'));
+
+  // Install all sites modules and features in the correct order. Rebuild field
+  // instances afterwards if you plan on doing something afterwards. If not,
+  // leave it and trust that a drush cc all folowing the install will fix it.
+  $modules = array(
+    // Base modules and features (functional)
+    'o2_environment',
+    'o2_abesim',
+    'fo2_base',
+    'fo2_media',
+
+    // Content types
+    'fo2_page',
+    'fo2_showcase',
+    'fo2_block',
+		'fo2_person',
+		'fo2_news',
+		'fo2_testimonial',
+		'fo2_service',
+
+    // Basic content
+    'fo2_content',
+
+    // Advanced content
+    'fo2_homepage',
+
+    // Finishing modules/features and possible extra's.
+    //
+    // For the search feature, make sure you are running a multicore solr on
+    // localhost port 8983 and setup a core with the name "sitename.loc" and in
+    // fo2_search.features.inc find and replace "solr\\/sitename.loc" with
+    // your sitename.
+    'fo2_permission',
+    'o2_ga_events',
+    'o2_translate',
+  );
+  module_enable($modules);
+  //foreach ($modules as $module) {
+  //  field_instance_features_rebuild($module);
+  //}
+
+  // General settings that need to be setup on each project.
+  // @todo: fill in these settings!
+  variable_set('user_register', 0);
+  variable_set('googleanalytics_account', 'UA-');
+}

@@ -1,0 +1,106 @@
+.l-region--title {
+  margin: 0 auto;
+
+  // OVERVIEWS
+  text-align: center;
+
+  // BACKGROUND IMAGES
+  &.has_background_image {
+    max-width: 110em;  
+    padding: 60px 0 0 0;
+    min-height: 240px;
+    @include breakpoint($tab, true){
+      min-height: 400px;
+      max-height: 425px;
+      padding: 220px 0 80px 0;
+    }
+    background-size: cover;
+    background-position: top center;
+    background-repeat: no-repeat;
+    color: $white;
+    margin: 0 auto 2em auto;   
+    text-shadow: 1px 1px 2px rgb(125,125,125);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+
+    position: relative;
+
+    z-index: -1;
+
+    &:before {
+      // width: 100%;
+      // background: url(../images/grid.png) 0 repeat;
+      // content: '';
+      // position: absolute;
+      // left: 0;
+      // right: 0;
+      // top: 0;
+      // bottom: 0;
+      // z-index: -1;
+    }
+
+    &:after{
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0,0,0,0.1);
+      z-index: 0;
+    }
+    > div { position: relative; z-index: 10; }
+
+    h1,
+    h2,
+    p,
+    .field__item:before {  
+      filter: glow(color=666666,strength=2);
+    }
+    .field__item{  
+      filter: glow(color=666666,strength=2);
+      display: inline-block;
+    }
+  }
+
+  h1 {
+    margin-bottom: 0;    
+
+  }
+  h2 {
+    font-family: $proximanova; font-weight: normal;
+    @include breakpoint(0 $tab){
+      font-size: 1em;
+    }    
+  }
+
+  .block--expe-base-expe-date-location {
+    @include pie-clearfix;
+    div { display: inline; }
+
+    .field {
+      margin: 0 1em 1em 0;
+      font-size: 1.2em;
+
+      .field__item:before{
+        font-family: "fontello";
+        font-style: normal;
+        font-weight: normal;
+        speak: none;
+        display: inline-block;
+        text-decoration: inherit;
+        margin-right: .5em;
+      }
+      &.field--name-field-date .field__item:before { content:'\e80f'; }
+      &.field--name-field-location .field__item:before { content:'\e817'; }
+    }
+  }
+
+
+  // NO INTRO
+  /*&.js-no-intro {
+    text-align: left;
+    margin-bottom: 0;
+  }*/
+}

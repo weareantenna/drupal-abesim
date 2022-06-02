@@ -1,0 +1,309 @@
+<?php
+/**
+ * @file
+ * The Termcase module gives you the option to specify specific
+ * case-formatting on terms.
+ *
+ * This module prevents users to use different cases on terms.
+ * Site-admins now can make sure all terms in a vocabulary begin with an
+ * uppercase or that they are all formatted to uppercase / lowercase.
+ */
+
+define('TERMCASE_NONE', 0);
+define('TERMCASE_UCFIRST', 1);
+define('TERMCASE_LOWERCASE', 2);
+define('TERMCASE_UPPERCASE', 3);
+define('TERMCASE_PROPERCASE', 4);
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function termcase_form_taxonomy_form_term_alter(&$form, &$form_state) {
+  $edit_link = t('You can change this setting on the <a href="@vocabulary_edit_link">vocabulary settings page</a>.', array(
+    '@vocabulary_edit_link' => url('admin/structure/taxonomy/' . $form['#vocabulary']->machine_name . '/edit'),
+  ));
+
+  switch (_termcase_vocabulary_termcase($form['#vocabulary']->machine_name)) {
+    case TERMCASE_UCFIRST:
+      $form['name']['#description'] = t('Please note: the first letter of this term will be converted to <em>Uppercase</em>.') . ' ' . $edit_link;
+      break;
+
+    case TERMCASE_LOWERCASE:
+      $form['name']['#description'] = t('Please note: the term will be converted to <em>lowercase</em>.') . ' ' . $edit_link;
+      break;
+
+    case TERMCASE_UPPERCASE:
+      $form['name']['#description'] = t('Please note: the term will be converted to <em>UPPERCASE</em>.') . ' ' . $edit_link;
+      break;
+
+    case TERMCASE_PROPERCASE:
+      $form['name']['#description'] = t('Please note: the term will be converted to <em>Proper Case</em>.') . ' ' . $edit_link;
+      break;
+
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Adds the termcase selection dropdown to the vocabulary form.
+ */
+function termcase_form_taxonomy_form_vocabulary_alter(&$form, &$form_state) {
+  $vocabulary = $form['#vocabulary'];
+
+  $mode = TERMCASE_NONE;
+  if (!empty($vocabulary->machine_name)) {
+    $mode = _termcase_vocabulary_termcase($vocabulary->machine_name);
+  }
+
+  $form['termcase'] = array(
+    '#title' => t('Term case settings'),
+    '#type' => 'fieldset',
+    '#collapsible' => TRUE,
+    '#weight' => 2,
+    'termcase_options' => array(
+      '#title' => t('Convert terms to this case'),
+      '#type' => 'select',
+      '#options' => array(
+        TERMCASE_NONE => t('No conversion'),
+        TERMCASE_UCFIRST => t('Convert the first character to uppercase'),
+        TERMCASE_LOWERCASE => t('Convert all characters to lowercase'),
+        TERMCASE_UPPERCASE => t('Convert ALL CHARACTERS TO UPPERCASE'),
+        TERMCASE_PROPERCASE => t('Convert the first character of each word to uppercase'),
+      ),
+      '#default_value' => $mode,
+      '#description' => t('This applies to all terms that are added to this vocabulary.'),
+    ),
+  );
+
+  $form['submit']['#weight'] = 4;
+
+  // These settings only apply on existing vocabularies.
+  if (isset($form['vid'])) {
+    $form['delete']['#weight'] = 5;
+
+    $form['termcase']['termcase_options']['#description'] = t('Note: existing terms will not be changed.');
+
+    $form['termcase']['termcase_update_terms'] = array(
+      '#title' => t('Convert the existing terms in this vocabulary immediately'),
+      '#type' => 'checkbox',
+    );
+  }
+}
+
+/**
+ * Implements hook_taxonomy_vocabulary_delete().
+ *
+ * Used to cleanup the termcase variable when deleting a vocabulary.
+ *
+ * @param object $vocabulary
+ *   The vocabulary object.
+ */
+function termcase_taxonomy_vocabulary_delete($vocabulary) {
+  _termcase_vocabulary_termcase_delete($vocabulary->machine_name);
+}
+
+/**
+ * Override of theme_vocabulary_overview_vocabularies().
+ *
+ * Used to display the current termcase settings per vocabulary.
+ */
+function termcase_theme_registry_alter(&$theme_registry) {
+  $theme_registry['taxonomy_overview_vocabularies']['function'] = 'theme_termcase_overview_vocabularies';
+}
+
+/**
+ * Override the vocabulary admin overview.
+ *
+ * We want to display the current termcase settings for each vocabulary.
+ */
+function theme_termcase_overview_vocabularies($variables) {
+  $form = $variables['form'];
+
+  $rows = array();
+
+  foreach (element_children($form) as $key) {
+    if (isset($form[$key]['name'])) {
+      $vocabulary = $form[$key]['#vocabulary'];
+      $vocabulary_row = &$form[$key];
+
+      $row = array();
+      $row[] = drupal_render($vocabulary_row['name']);
+
+      switch (_termcase_vocabulary_termcase($vocabulary->machine_name)) {
+        case TERMCASE_UCFIRST;
+          $row[] = t('First character uppercase');
+          break;
+
+        case TERMCASE_LOWERCASE;
+          $row[] = t('All characters lowercase');
+          break;
+
+        case TERMCASE_UPPERCASE;
+          $row[] = t('All characters uppercase');
+          break;
+
+        case TERMCASE_PROPERCASE;
+          $row[] = t('First character of each word uppercase');
+          break;
+
+        default:
+          $row[] = t('None');
+      }
+      if (isset($vocabulary_row['weight'])) {
+        $vocabulary_row['weight']['#attributes']['class'] = array('vocabulary-weight');
+        $row[] = drupal_render($vocabulary_row['weight']);
+      }
+      $row[] = drupal_render($vocabulary_row['edit']);
+      $row[] = drupal_render($vocabulary_row['list']);
+      $row[] = drupal_render($vocabulary_row['add']);
+      $rows[] = array('data' => $row, 'class' => array('draggable'));
+    }
+  }
+
+  $header = array(t('Vocabulary name'), t('Case conversion'));
+  if (isset($form['actions'])) {
+    $header[] = t('Weight');
+    drupal_add_tabledrag('taxonomy', 'order', 'sibling', 'vocabulary-weight');
+  }
+  $header[] = array('data' => t('Operations'), 'colspan' => '4');
+  return theme('table', array(
+    'header' => $header,
+    'rows' => $rows,
+    'empty' => t('No vocabularies available. <a href="@link">Add vocabulary</a>.', array(
+      '@link' => url('admin/structure/taxonomy/add'))
+    ),
+    'attributes' => array('id' => 'taxonomy'),
+  )) . drupal_render_children($form);
+}
+
+/**
+ * Implements hook_taxonomy_vocabulary_insert().
+ *
+ * Adds the termcase setting when adding a new vocabulary.
+ */
+function termcase_taxonomy_vocabulary_insert($vocabulary) {
+  if (isset($vocabulary->termcase_options)) {
+    _termcase_vocabulary_termcase($vocabulary->machine_name, $vocabulary->termcase_options);
+  }
+}
+
+/**
+ * Implements hook_taxonomy_vocabulary_update().
+ *
+ * Updates the termcase setting when adding a new vocabulary.
+ */
+function termcase_taxonomy_vocabulary_update($vocabulary) {
+  if (isset($vocabulary->termcase_options)) {
+    _termcase_vocabulary_termcase($vocabulary->machine_name, $vocabulary->termcase_options);
+
+    // Update all existing terms.
+    if ($vocabulary->termcase_update_terms != 0) {
+      _termcase_update_all_terms($vocabulary->machine_name, $vocabulary->termcase_options);
+    }
+  }
+}
+
+/**
+ * Implements hook_taxonomy_term_insert().
+ *
+ * Converts the term to the current termcase settings when adding it.
+ */
+function termcase_taxonomy_term_insert($term) {
+  $term->name = _termcase_convert_string_to_case($term->name, _termcase_vocabulary_termcase($term->vocabulary_machine_name)
+  );
+  _termcase_update_term_name($term);
+}
+
+/**
+ * Implements hook_taxonomy_term_update().
+ *
+ * Converts the term to the current termcase settings when changing it.
+ */
+function termcase_taxonomy_term_update($term) {
+  $term->name = _termcase_convert_string_to_case($term->name, _termcase_vocabulary_termcase($term->vocabulary_machine_name));
+  _termcase_update_term_name($term);
+}
+
+/**
+ * Apply case formatting to all terms in a vocabulary.
+ *
+ * Helper function to loop through all terms in the specified
+ * vocabulary and apply the case formatting to each of them.
+ */
+function _termcase_update_all_terms($vocabulary_name, $case) {
+  $vocabulary = taxonomy_vocabulary_machine_name_load($vocabulary_name);
+  $tree = taxonomy_get_tree($vocabulary->vid);
+  foreach ($tree as $term) {
+    $term->name = _termcase_convert_string_to_case($term->name, $case);
+    _termcase_update_term_name($term);
+  }
+  drupal_set_message(t('@terms been updated', array(
+    '@terms' => format_plural(sizeof($tree), '1 term has', '@count terms have'))
+  ));
+}
+
+/**
+ * Helper function to get/set the current termcase setting.
+ */
+function _termcase_vocabulary_termcase($vocabulary_name, $termcase = NULL) {
+  if (!is_null($termcase)) {
+    variable_set('taxonomy_vocabulary_' . $vocabulary_name . '_termcase', (int) $termcase);
+  }
+  else {
+    return variable_get('taxonomy_vocabulary_' . $vocabulary_name . '_termcase');
+  }
+}
+
+/**
+ * Helper function to delete the current termcase setting.
+ */
+function _termcase_vocabulary_termcase_delete($vocabulary_name) {
+  variable_del('taxonomy_vocabulary_' . $vocabulary_name . '_termcase');
+}
+
+/**
+ * Helper function to convert the current string to the specified case.
+ */
+function _termcase_convert_string_to_case($original_string, $case = TERMCASE_NONE) {
+  switch ($case) {
+    case TERMCASE_UCFIRST;
+      $converted_string = drupal_ucfirst($original_string);
+      break;
+
+    case TERMCASE_LOWERCASE;
+      $converted_string = drupal_strtolower($original_string);
+      break;
+
+    case TERMCASE_UPPERCASE;
+      $converted_string = drupal_strtoupper($original_string);
+      break;
+
+    case TERMCASE_PROPERCASE;
+      $words = explode(' ', $original_string);
+      foreach ($words as $key => $word) {
+        $words[$key] = drupal_ucfirst($word);
+      }
+      $converted_string = implode(' ', $words);
+      break;
+
+    default:
+      $converted_string = $original_string;
+      break;
+  }
+
+  // Allow modules to change the string before saving it.
+  drupal_alter('termcase_convert_string', $converted_string, $original_string, $case);
+
+  return $converted_string;
+}
+
+/**
+ * Helper function to update the term in the database.
+ */
+function _termcase_update_term_name($term) {
+  db_update('taxonomy_term_data')
+    ->fields(array('name' => $term->name))
+    ->condition('tid', $term->tid)
+    ->execute();
+}

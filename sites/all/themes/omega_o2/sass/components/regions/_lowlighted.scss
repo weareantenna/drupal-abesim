@@ -1,0 +1,68 @@
+.l-lowlighted {
+  clear: both;
+  width: 100%;
+  border-top: 1px solid $red-dark;
+  //border-bottom: 1px solid $red-dark;
+  background-color: $red;
+  background-image:  url(../bg.png);
+  background-repeat: repeat;
+  color: $white;
+  font-weight: 300;
+  text-align: center;
+
+
+  .l-region {
+    padding: 1.675em 0 2.175em;
+    font-size: 1.15em;
+    line-height: 1.375em;
+    @include breakpoint($small-tab $tab-desk) {
+      font-size: 1.425em;
+    }
+    @include breakpoint($tab-desk, true) {
+      font-size: 1.675em;
+    }
+
+  }
+  em {
+    display: inline-block;
+    text-transform: uppercase;
+    font-style: normal;
+    font-size: .425em;
+    margin-bottom: .1em;
+    font-weight: 400;
+  }
+  strong {
+    font-weight: 700;
+  }
+  a {
+    color: $white;
+    border: 1px solid $white;
+    padding: .125em 1.25em;
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: .625em;
+    font-weight: 400;
+    margin-top: .5em;
+    @include border-radius(4px);
+    @include transition-duration(.25s);
+    //@include background-image(linear-gradient(to bottom, $red, transparent));
+    &:after {
+      content: "\f0da";
+      font-family: FontAwesome;
+      margin-left: .75em;
+      &:hover {
+        color: $red-dark;
+      }
+    }
+    &:hover {
+      color: $red-dark;
+      background-color: $white;
+      border: 1px solid $red-dark;
+      @include transform (scale(1.0375));
+      @include background-image(linear-gradient(to bottom, $white, $grey-ultra));
+    }
+  }
+  p + p {
+    margin-top: -1em;
+  }
+}

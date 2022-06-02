@@ -1,0 +1,67 @@
+body {
+  .l-main {
+    background-color: $background;
+  }
+
+  // GENERAL PADDING
+  .l-content {
+    //padding: 3em 0 6.25em;
+    padding: 3em 0 4em;
+    float: right;
+    width: 100%;
+  }
+
+  &.not-front {
+    // VIEWS PADDING & LINE
+    .views-row {
+      width: 100%;
+      & + .views-row {
+        margin-top: $large-vert-spacing-unit;
+        border-top: 1px solid $grey-light;
+        padding-top: $large-vert-spacing-unit;
+      }
+    }
+  }
+
+  // MORE LINK
+  .more a, a.more {
+    clear: left;
+    color: $base-text-color;
+    font-weight: 700;
+    font-size: .875em;
+    padding: .5em 1em .5em 0;
+    &:before {
+      content: "\f138";
+      font-family: FontAwesome;
+      font-size: 1.1em;
+      margin-right: .5em;
+
+      &:hover {
+        color: $red;
+      }
+    }
+    &:hover {
+      color: $red;
+    }
+  }
+
+  //BUTTON
+  a.button {
+    margin-top: 1em;
+    background-color: $red-dark;
+    color: $white;
+    font-weight: 700;
+    border: 1px solid $red;
+    padding: 0.42em 1.16em;
+    text-transform: capitalize;
+    line-height: 1.6em;
+    @include border-radius(4px);
+    &:hover,
+    &.active {
+      background-color: $red;
+      border: 1px solid $red-dark;
+      @include background-image(linear-gradient(to bottom, $red, $red-dark));
+      color: $white;
+    }
+  }
+}

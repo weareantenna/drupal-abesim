@@ -1,0 +1,18 @@
+<?php
+
+function fo2_testimonial_update_7001() {
+  module_enable(array('entityreference_filter', 'better_exposed_filter'));
+
+  // Revert the field base.
+  require_once drupal_get_path('module', 'fo2_base') . '/fo2_base.features.field_base.inc';
+  $fields = fo2_base_field_default_field_bases();
+  field_update_field($fields['field_related_solutions']);
+  field_update_field($fields['field_related_services']);
+
+  // Revert the views.
+  require_once drupal_get_path('module', 'fo2_testimonial') . '/fo2_testimonial.views_default.inc';
+  $export = fo2_testimonial_views_default_views();
+  foreach ($export as $view) {
+    $view->save();
+  }
+}

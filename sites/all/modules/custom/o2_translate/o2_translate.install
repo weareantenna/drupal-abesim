@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * Initiates all custom translatables.
+ */
+function o2_translate_install() {
+  require_once drupal_get_path('module', 'o2_translate') . '/o2_translate.locale.inc';
+  $translations = o2_translate_get_translations();
+  foreach ($translations as $translation) {
+    o2_translate_set_translation($translation);
+  }
+  _locale_invalidate_js();
+  cache_clear_all('locale:', 'cache', TRUE);
+}
+
+/* Uncomment to reinitialize translations after install
+function o2_translate_update_7001() {
+  require_once drupal_get_path('module', 'o2_translate') . '/o2_translate.locale.inc';
+  $translations = o2_translate_get_translations();
+  foreach ($translations as $translation) {
+    o2_translate_update_translation($translation);
+  }
+  _locale_invalidate_js();
+  cache_clear_all('locale:', 'cache', TRUE);
+}*/

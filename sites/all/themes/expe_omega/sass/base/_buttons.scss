@@ -1,0 +1,92 @@
+
+/*
+=======================
+The Button Mixin.======
+=======================
+
+=It takes 3 arguments:=
+- the background-color ($bg),
+in our case we will pass it the color vars we defined above.
+
+=And does fancy stuff=
+1. Figure out the lightness of the passed background-color via the lightness() function and set either a dark or a light text color.
+
+*/
+
+@mixin button($bg, $rounded: false ){
+  
+  font-size: 1.1em;
+  line-height: 1;
+  padding: .7em 1em .5em 1em;
+
+  -moz-border-radius: .3em;
+  -webkit-border-radius: .3em;
+  -o-border-radius: .3em;
+  -ms-border-radius: .3em;
+  -khtml-border-radius: .3em;
+  border-radius: .3em;
+
+
+  // COLOR
+  $color: $grey-dark;
+  /*
+  Setting the color based on the background, as described above (1)
+  */ 
+  @if lightness($bg) > 68% {
+    $color: desaturate(darken($bg, 50), 70);
+    &:hover, &:focus {
+      background: darken($bg, 5);
+      color: darken($color, 5);
+    }
+  }
+  @else {
+    $color: lighten($bg, 70);
+    &:hover, &:focus {
+      background: darken($bg, 5);
+      color: lighten($color, 5);
+    }
+  }
+    
+  color: $color;
+  display: inline-block;
+  border: none;
+
+  @include transition(.3s);
+
+  text:{
+    transform: uppercase;
+    decoration: none;
+  }
+
+  background-color: $bg;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, $bg), color-stop(100%, darken($bg, 5)));
+  background: -webkit-linear-gradient($bg, darken($bg, 5));
+  background: -moz-linear-gradient($bg, darken($bg, 5));
+  background: -o-linear-gradient($bg, darken($bg, 5));
+  background: -ms-linear-gradient($bg, darken($bg, 5));
+  background: linear-gradient($bg, darken($bg, 5));
+
+  -moz-box-shadow: lighten($bg, 15) 0 2px 0 inset;
+  -webkit-box-shadow: lighten($bg, 15) 0 2px 0 inset;
+  -o-box-shadow: lighten($bg, 15)0 2px 0 inset;
+  box-shadow: lighten($bg, 15) 0 2px 0 inset;
+
+  border: 1px solid darken($bg, 5);
+
+  text-shadow: darken($bg, 5) 0 -1px 0;
+      
+          
+  &:active {
+    @include transform(scale(.95));    
+  }
+  &:hover, &:focus {
+    background-color:$bg;
+    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, lighten($bg, 15)), color-stop(100%,$bg));
+    background: -webkit-linear-gradient(lighten($bg, 15),$bg);
+    background: -moz-linear-gradient(lighten($bg, 15),$bg);
+    background: -o-linear-gradient(lighten($bg, 15),$bg);
+    background: -ms-linear-gradient(lighten($bg, 15),$bg);
+    background: linear-gradient(lighten($bg, 15),$bg);
+  }
+}
+

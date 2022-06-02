@@ -1,0 +1,40 @@
+.toolbar.front .l-header,
+.toolbar.node-type-woonwereld .l-header,
+.toolbar.node-type-decoratie .l-header {
+  top: 32px;
+}
+
+.toolbar-drawer.front .l-header,
+.toolbar-drawer.node-type-woonwereld .l-header,
+.toolbar-drawer.node-type-decoratie .l-header {
+  top: 64px;
+}
+
+
+.tabs--primary {
+  margin: 1em 0;
+  padding: 0;
+  list-style-type: none;
+  
+  li{
+    display: inline;
+    margin: 0 .5em 0 0;
+
+     a {
+      background: $grey-light;
+      color: $purple-dark;
+      @include border-radius(6px);
+      padding: 3px 6px;
+
+      &:hover {
+        background: $purple;
+        color: $white;
+      }
+     }
+
+     &.active a {
+      background: $purple-dark;
+      color: $white;
+     }
+  }
+}

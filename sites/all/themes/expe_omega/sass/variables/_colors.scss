@@ -1,0 +1,23 @@
+// BASICS
+$white:           #fff;
+$black:           #000;
+$grey:            #999;
+$grey-dark:       #111;
+$grey-light:      #ddd;
+$grey-ultra:      #eee;
+
+// CORPORATE COLORS
+$red:							#cb0014;
+$purple:          #63516d;
+$purple-dark:     darken($purple, 5%);
+$purple-extra-dark:     darken($purple, 7.5%);
+$green:           #c3d531;
+$green-light:     lighten($green, 5%);
+$green-dark:      darken($green, 5%);
+
+// EXTRA COLORS FOR BUTTONS
+$red:             #c9252b;
+$blue:            #176ca3;
+$tw-blue:         #4099ff;
+$fb-blue:         #3b5998;
+$yellow:          #ffef35;

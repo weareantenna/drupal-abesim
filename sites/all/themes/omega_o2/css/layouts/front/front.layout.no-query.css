@@ -1,0 +1,95 @@
+/*******************************************************************************
+ * divine.layout.scss
+ *
+ * Styling of the "divine" layout demonstrating the golden rule and asymmetric
+ * grids with Singularity.
+ ******************************************************************************/
+/*
+Thin: 100, Light: 300, Light Italic: 300, Normal: 400, Bold: 700, Ultra-bold: 900
+*/
+/* line 17, ../../../sass/layouts/front/front.layout.scss */
+.l-intro .l-region,
+.l-main,
+.l-cta .l-region,
+.l-team .l-region,
+.l-footer,
+.container,
+.l-region--title .block-subtitle {
+  width: 80%;
+  width: 90%;
+  margin: 0 auto;
+  max-width: 990px;
+  *zoom: 1; }
+  /* line 38, ../../../../../../../../../../Users/TVR/.rvm/gems/ruby-1.9.3-p551@omega.omega_o2/gems/compass-core-1.0.3/stylesheets/compass/utilities/general/_clearfix.scss */
+  .l-intro .l-region:after,
+  .l-main:after,
+  .l-cta .l-region:after,
+  .l-team .l-region:after,
+  .l-footer:after,
+  .container:after,
+  .l-region--title .block-subtitle:after {
+    content: "";
+    display: table;
+    clear: both; }
+
+/* line 92, ../../../sass/layouts/front/front.layout.scss */
+.l-header {
+  width: 100%;
+  float: right;
+  margin-left: 0;
+  margin-right: 0;
+  clear: none;
+  padding-right: 0; }
+
+/* line 97, ../../../sass/layouts/front/front.layout.scss */
+.l-content {
+  width: 100%;
+  float: right;
+  margin-left: 0;
+  margin-right: 0;
+  clear: none;
+  padding-right: 0; }
+
+/* line 102, ../../../sass/layouts/front/front.layout.scss */
+.l-region--doormat-left {
+  width: 25%;
+  float: left;
+  margin-right: -100%;
+  clear: none;
+  padding-right: 4em; }
+
+/* line 105, ../../../sass/layouts/front/front.layout.scss */
+.l-region--doormat-middle {
+  width: 25%;
+  float: left;
+  margin-right: -100%;
+  margin-left: 25%;
+  clear: none;
+  padding-right: 4em; }
+
+/* line 108, ../../../sass/layouts/front/front.layout.scss */
+.l-region--doormat-right {
+  width: 50%;
+  float: right;
+  margin-left: 0;
+  margin-right: 0;
+  clear: none;
+  padding-right: 0; }
+
+/*
+@include breakpoint(30em $tab) {
+  // DOORMAT
+  .l-region--doormat-left {
+    @include grid-span(24, 1);
+  }
+  .l-region--doormat-middle {
+    @include grid-span(12, 1);
+    clear: right;
+  }
+  .l-region--doormat-right {
+    @include grid-span(12, 13);
+  }
+}
+*/
+
+/*# sourceMappingURL=front.layout.no-query.css.map */

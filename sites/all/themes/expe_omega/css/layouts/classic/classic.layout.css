@@ -1,0 +1,130 @@
+/*******************************************************************************
+ * divine.layout.scss
+ *
+ * Styling of the "divine" layout demonstrating the golden rule and asymmetric
+ * grids with Singularity.
+ ******************************************************************************/
+/* line 14, ../../../sass/layouts/classic/classic.layout.scss */
+.l-header,
+.l-breads,
+.l-intro .l-region,
+.l-main,
+.l-cta .l-region,
+.l-team .l-region,
+.l-footer,
+.container,
+.l-region--title .block-subtitle {
+  width: 94%;
+  margin: 0 auto;
+  max-width: 78em;
+  *zoom: 1; }
+  /* line 38, ../../../../../../../../../../Users/SDF/.rvm/gems/ruby-1.9.3-p551@omega.expe_omega/gems/compass-core-1.0.1/stylesheets/compass/utilities/general/_clearfix.scss */
+  .l-header:after,
+  .l-breads:after,
+  .l-intro .l-region:after,
+  .l-main:after,
+  .l-cta .l-region:after,
+  .l-team .l-region:after,
+  .l-footer:after,
+  .container:after,
+  .l-region--title .block-subtitle:after {
+    content: "";
+    display: table;
+    clear: both; }
+  @media (min-width: 74.5em) {
+    /* line 14, ../../../sass/layouts/classic/classic.layout.scss */
+    .l-header,
+    .l-breads,
+    .l-intro .l-region,
+    .l-main,
+    .l-cta .l-region,
+    .l-team .l-region,
+    .l-footer,
+    .container,
+    .l-region--title .block-subtitle {
+      max-width: 92em; } }
+
+@media (min-width: 46em) {
+  /* line 29, ../../../sass/layouts/classic/classic.layout.scss */
+  .l-header {
+    margin-bottom: 2em; }
+
+  /* line 34, ../../../sass/layouts/classic/classic.layout.scss */
+  .l-content {
+    width: 100%;
+    float: right;
+    margin-left: 0;
+    margin-right: 0;
+    clear: none;
+    padding-right: 0; }
+
+  /* line 39, ../../../sass/layouts/classic/classic.layout.scss */
+  .has-one-sidebar .l-content {
+    width: 66.66667%;
+    float: left;
+    margin-right: -100%;
+    clear: none;
+    padding-right: 3em; }
+  /* line 42, ../../../sass/layouts/classic/classic.layout.scss */
+  .has-one-sidebar .l-region--sidebar-first {
+    width: 33.33333%;
+    float: right;
+    margin-left: 0;
+    margin-right: 0;
+    clear: none;
+    padding-right: 0; }
+
+  /* line 48, ../../../sass/layouts/classic/classic.layout.scss */
+  .l-region--doormat-left {
+    width: 33.33333%;
+    float: left;
+    margin-right: -100%;
+    clear: none;
+    padding-right: 3em; }
+
+  /* line 51, ../../../sass/layouts/classic/classic.layout.scss */
+  .l-region--doormat-middle {
+    width: 33.33333%;
+    float: left;
+    margin-right: -100%;
+    margin-left: 33.33333%;
+    clear: none;
+    padding-right: 3em; }
+
+  /* line 54, ../../../sass/layouts/classic/classic.layout.scss */
+  .l-region--doormat-right {
+    width: 33.33333%;
+    float: right;
+    margin-left: 0;
+    margin-right: 0;
+    clear: none;
+    padding-right: 0; } }
+@media (min-width: 30em) and (max-width: 46em) {
+  /* line 61, ../../../sass/layouts/classic/classic.layout.scss */
+  .l-region--doormat-left {
+    width: 100%;
+    float: right;
+    margin-left: 0;
+    margin-right: 0;
+    clear: none;
+    padding-right: 0; }
+
+  /* line 64, ../../../sass/layouts/classic/classic.layout.scss */
+  .l-region--doormat-middle {
+    width: 50%;
+    float: left;
+    margin-right: -100%;
+    clear: none;
+    padding-right: 3em;
+    clear: right; }
+
+  /* line 68, ../../../sass/layouts/classic/classic.layout.scss */
+  .l-region--doormat-right {
+    width: 50%;
+    float: right;
+    margin-left: 0;
+    margin-right: 0;
+    clear: none;
+    padding-right: 0; } }
+
+/*# sourceMappingURL=classic.layout.css.map */

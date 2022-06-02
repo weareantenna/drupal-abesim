@@ -1,0 +1,60 @@
+/**
+ * $FORM-ITEM
+ */
+.form-item {
+
+  label {
+    margin-bottom: 0.4em;
+    font-weight: normal;
+  }
+  .form-select,
+  .form-text,
+  .form-textarea {
+    width: 100%;
+    padding: .55em .5em;
+    margin-top: -1px;
+    background-color: $white;
+    border: 1px solid $grey-light;
+    border-radius: .3em;
+    vertical-align: middle;
+  }
+
+  // FIX FOR CHOSEN MODULE
+  .chosen-container{
+    border: 0;
+    padding: 0;
+  }
+
+  .description {
+    margin-top: 0.2em;
+    font-style: italic;
+  }
+}
+
+.container-inline {
+  .form-select,
+  .form-text,
+  .form-textarea {
+    width: auto;
+  }
+}
+
+select,
+input,
+textarea {
+  &:focus {
+    @include box-shadow(0 0 4px 1px rgba($grey-light, 0.8));
+  }
+}
+
+input[type="submit"]{
+  @include button($purple-dark, false);
+}
+input[type="file"]{ width: 70%; }
+.form-managed-file input[type="submit"]{
+  @include button($grey-light, false);
+  padding: .5em .5em .2em .5em;
+  text-transform: none;
+  box-shadow: none;
+}
+

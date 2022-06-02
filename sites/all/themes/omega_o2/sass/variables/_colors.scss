@@ -1,0 +1,33 @@
+// BASICS
+$white:           #fff;
+$grey-ultra:      #eee;
+$grey-light:      #ddd;
+$grey:            #999;
+$grey-dark:       #111;
+$black:           #000;
+
+// CORPORATE COLORS
+$color:           #454142;
+//$red:             #D00115;
+$red: #cd0013;
+$red-ultra:       #EA1D24;
+$red-light:       lighten($red, 5%);
+$red-dark:        darken($red, 5%);
+
+// COLOR TYPES
+$background:                  $white;
+$base-text-color:             $color;
+$base-link-color:             $red;
+$base-link-hover-color:       $red-dark;
+$base-selected-text-color:    $white;
+$base-selected-text-background-color: $red-ultra;
+$invert-color:                invert($color);
+
+// EXTRA COLORS
+$blue:            #176ca3;
+$tw-blue:         #4099ff;
+$fb-blue:         #3b5998;
+$yellow:          #ffef35;
+$purple:          #63516d;
+$green:           #c3d531;
+$green-dark:      #c3d531;

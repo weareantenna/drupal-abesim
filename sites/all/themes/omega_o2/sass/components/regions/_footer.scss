@@ -1,0 +1,21 @@
+.l-footer {
+  clear: both;
+  width: 100%;
+  min-height: 3em;
+  background-color: $background;
+  color: $grey;
+  padding: 1em 0;
+  font-size: .825em;
+  @include breakpoint($tab-desk, true) {
+    font-size: .875em;
+  }
+  a {
+    color: $grey;
+    &:hover {
+      color: $red;
+    }
+  }
+  .field-name-title {
+    display: none;
+  }
+}

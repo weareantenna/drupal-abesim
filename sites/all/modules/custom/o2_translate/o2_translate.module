@@ -1,0 +1,64 @@
+<?php
+
+/**
+ * Function that sets saves all translations for a given source.
+ */
+function o2_translate_set_translation($translation) {
+  $query = db_select('locales_source', 'l');
+  $query->fields('l', array('lid'));
+  $query->condition('l.source', $translation['en'], 'LIKE');
+  $query->condition('l.textgroup', 'default', 'LIKE');
+  $result = $query->execute();
+  if ($row = $result->fetch()) {
+    db_delete('locales_source')->condition('lid', $row->lid)->execute();
+    db_delete('locales_target')->condition('lid', $row->lid)->execute();
+  }
+  $source = new stdClass();
+  $source->location = 'O2:Custom';
+  $source->textgroup = 'default';
+  $source->source = $translation['en'];
+  $source->version = 1;
+  drupal_write_record('locales_source', $source);
+  unset($translation['en']);
+  foreach ($translation as $lang => $string) {
+    if (!empty($string)) {
+      $target = new stdClass();
+      $target->lid = $source->lid;
+      $target->translation = $string;
+      $target->language = $lang;
+      drupal_write_record('locales_target', $target);
+    }
+  }
+}
+
+function o2_translate_update_translation($translation) {
+  $query = db_select('locales_source', 'l');
+  $query->fields('l', array('lid'));
+  $query->condition('l.source', $translation['en'], 'LIKE');
+  $query->condition('l.textgroup', 'default', 'LIKE');
+  if ($row = $query->execute()->fetch()) {
+    unset($translation['en']);
+    foreach ($translation as $lang => $string) {
+      $query = db_select('locales_target', 't');
+      $query->condition('t.lid', $row->lid);
+      $query->condition('t.language', $lang);
+      $query->fields('t', array('translation'));
+      if ($subrow = $query->execute()->fetch()) {
+        if (empty($subrow->translation)) {
+          $query = db_update('locales_target');
+          $query->condition('t.lid', $row->lid);
+          $query->condition('t.language', $lang);
+          $query->fields('t.translation', $string);
+        }
+      }
+      else {
+        $target = new stdClass();
+        $target->lid = $row->lid;
+        $target->translation = $string;
+        $target->language = $lang;
+        drupal_write_record('locales_target', $target);
+      }
+    }
+
+  }
+}

@@ -1,0 +1,135 @@
+// THE TRIGGER
+.trigger {
+  display: none;
+  position: absolute;
+  z-index: 999;
+  top: 30px;
+  //left: 20px;
+  padding: .25em .5em;
+  background: $purple-extra-dark;
+  color: $white;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: $proximanovasoft;
+
+  &:before{
+    content:'\e815';
+    font-family: "fontello";
+    font-style: normal;
+    font-weight: normal;
+    speak: none;
+    display: inline-block;
+    text-decoration: inherit;
+    width: 1em;
+    margin-right: .2em;
+    font-variant: normal;
+    text-transform: none;
+  }
+}
+
+// KICK IN
+@include breakpoint(0 $tab){
+
+  // SHOW TRIGGER
+  .trigger { display: block; }
+
+  // LOGO
+  .site-logo {
+    float: left;
+    width: 100%;
+    padding: 1em 0 1em 100px;
+    text-align: center;
+    transition: none;
+    margin-bottom: 1em;
+
+    img {
+      max-height: 65px;
+      width: auto;
+
+    }
+  }
+
+  // PREPARE THE MENU
+  .off-canvas {
+    position: absolute;
+    z-index: 0;
+    left: -300px;
+    top: 0;
+    width: 280px;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    background-color: $purple-extra-dark;
+
+    ul {
+      list-style-type: none;
+      padding: 0 .5em;
+
+      ul {
+        margin-top: .5em;
+        padding: 0 0 0 1em;
+      }
+    }
+
+    a {
+      color: $white;
+      -webkit-tap-highlight-color: $green;
+    }
+  }
+
+  // PREPARE THE PAGE TO ANIMATE OUT
+  .l-page {
+    -webkit-transition: -webkit-transform .1s;
+    -moz-transition: -moz-transform .1s;
+    -ms-transition: -moz-transform .1s;
+    -o-transition: -o-transform .1s;
+    transition: transform .1s;
+  }
+}
+
+// TRIGGERED
+html.js-nav-open {
+  height: 100%;
+  overflow: hidden;
+
+  // TRIGGER
+  .trigger{      
+    @include transition-property(left);
+    @include transition-duration(.5s);
+    left: 0;
+    &::before{
+      content:'\e819';
+    }
+  }
+
+  // PREPARE THE BODY
+  body {  
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  .l-page {
+    position: relative;
+    height: 100%;
+  }
+
+  // THE PAGE
+  @include breakpoint(0 $tab){
+    .l-page {
+      // ANIMATE IN
+      -webkit-transition: -webkit-transform .25s ease-in;
+      -moz-transition: -moz-transform .25s ease-in;
+      -ms-transition: -moz-transform .25s ease-in;
+      -o-transition: -o-transform .25s ease-in;
+      transition: transform .25s ease-in;
+      // MOVE
+      -webkit-transform: translate3d(300px, 0, 0);
+      -moz-transform: translate3d(300px, 0, 0);
+      -ms-transform: translate3d(300px, 0, 0);
+      -o-transform: translate3d(300px, 0, 0);
+      transform: translate3d(300px, 0, 0); 
+    }
+  }
+
+}
+

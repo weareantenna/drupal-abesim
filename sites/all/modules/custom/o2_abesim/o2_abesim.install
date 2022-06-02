@@ -1,0 +1,28 @@
+<?php
+
+function o2_abesim_update_7001(){
+  module_load_include('inc', 'fo2_content', 'fo2_content.features.uuid_node');
+  $uuids = _o2_abesim_default_uuids();
+  $nodes = fo2_content_uuid_features_default_content();
+  
+  //dpm($uuids);
+  
+  foreach($nodes as $nodekey){
+    foreach ($uuids['contact'] as $uuidkey => $uuidvalue) {
+      if($uuidkey !='nl'){
+        if($uuidvalue == $nodekey['uuid']){
+          //dpm($nodekey);
+          $node = (object)$nodekey;
+          $node->tnid = 38;
+          node_save($node);
+        }
+        
+      }
+    }
+  }
+  
+  $nodenl = _o2_abesim_load_node_by_uuid($uuids['contact']['nl']);
+  $nodenl->tnid = 38;
+  node_save($nodenl);
+  
+}

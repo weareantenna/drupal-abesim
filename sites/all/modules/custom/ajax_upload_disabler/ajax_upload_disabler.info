@@ -1,0 +1,3 @@
+name = AJAX Upload Disabler
+description = Disables AJAX uploads for users without permission.
+core = 7.x

@@ -1,0 +1,312 @@
+<?php
+
+define('O2_ENVIRONMENT_DEVELOPER', 'wesley.sandra@o2agency.be');
+
+/**
+ * Implements hook_environment().
+ */
+function o2_base_environment() {
+  return array(
+    'staging' => array(
+      'label' => t('Staging'),
+      'description' => t('Testing, bugfixes and content.'),
+      'allowed' => array(
+        'default' => FALSE,
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_environment_switch().
+ */
+function o2_base_environment_switch($target_env, $current_env) {
+  switch ($target_env) {
+    case 'production':
+      o2_environment_to_production($current_env);
+      break;
+    case 'staging':
+      o2_environment_to_staging($current_env);
+      break;
+    case 'development':
+      o2_environment_to_development($current_env);
+      break;
+  }
+}
+
+function o2_environment_to_development($from) {
+  $modules = array(
+    'admin_devel',
+    'dblog',
+    'devel',
+    'devel_generate',
+    'devel_node_access',
+    'ds_devel',
+    'link_css',
+    'metatag_devel',
+    'context_ui',
+    'ds_ui',
+    'field_ui',
+    //'migrate_ui',
+    'owlcarousel_ui',
+    'views_ui',
+    'update',
+    'l10n_update',
+    'omega',
+    'reroute_email',
+  );
+  foreach ($modules as $module) {
+    module_enable(array($module));
+  }
+
+  /*
+  $search_api_servers = _o2_search_api_servers();
+  search_api_server_enable('localhost');
+  $index = search_api_index_load('default_node_index');
+  $index->update(array('server' => $search_api_servers['development']));
+  search_api_server_disable('claerhout_solr_server'); */
+
+  $perms = array(
+    'access devel information',
+    'switch users',
+  );
+  user_role_grant_permissions(DRUPAL_ANONYMOUS_RID, $perms);
+  user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, $perms);
+
+  variable_set('block_cache', 0);
+  variable_set('cache', 0);
+  variable_set('page_compression', 0);
+  variable_set('preprocess_css', 0);
+  variable_set('preprocess_js', 0);
+  variable_set('error_level', 1);
+  variable_set('views_ui_show_sql_query', 1);
+  variable_set('devel_rebuild_theme_registry', 1);
+  variable_set(REROUTE_EMAIL_ENABLE, 1);
+  variable_set(REROUTE_EMAIL_ADDRESS, O2_ENVIRONMENT_DEVELOPER);
+}
+
+function o2_environment_to_staging($from) {
+  $modules = array(
+    'dblog',
+    'context_ui',
+    'ds_ui',
+    'field_ui',
+    //'migrate_ui',
+    'owlcarousel_ui',
+    'views_ui',
+    'reroute_email',
+    'l10n_update',
+  );
+  foreach ($modules as $module) {
+    module_enable(array($module));
+  }
+  $modules = array(
+    'admin_devel',
+    'devel',
+    'devel_generate',
+    'devel_node_access',
+    'ds_devel',
+    'link_css',
+    'metatag_devel',
+    'omega',
+    'update',
+  );
+  /*
+  $search_api_servers = _o2_search_api_servers();
+  search_api_server_enable('claerhout_solr_server');
+  $index = search_api_index_load('default_node_index');
+  $index->update(array('server' => $search_api_servers['staging']));
+  search_api_server_disable('localhost'); */
+  o2_environment_module_disable($modules);
+
+  $perms = array(
+    'access devel information',
+    'switch users',
+  );
+  user_role_revoke_permissions(DRUPAL_ANONYMOUS_RID, $perms);
+  user_role_revoke_permissions(DRUPAL_AUTHENTICATED_RID, $perms);
+
+  variable_set('block_cache', 0);
+  variable_set('cache', 0);
+  variable_set('page_compression', 1);
+  variable_set('preprocess_css', 1);
+  variable_set('preprocess_js', 1);
+  variable_set('error_level', 0);
+  variable_set('views_ui_show_sql_query', 0);
+  variable_set('devel_rebuild_theme_registry', 0);
+  variable_set(REROUTE_EMAIL_ENABLE, 1);
+  variable_set(REROUTE_EMAIL_ADDRESS, O2_ENVIRONMENT_DEVELOPER);
+}
+
+function o2_environment_to_production($from) {
+  // Do staging steps first and only add production only steps here. Makes it
+  // more clear to track the differences.
+  o2_environment_to_staging($from);
+
+  // Production only settings
+  $modules = array(
+    'dblog',
+    'context_ui',
+    'ds_ui',
+    'field_ui',
+    //'migrate_ui',
+    'owlcarousel_ui',
+    'update',
+    'l10n_update',
+    'views_ui',
+    'reroute_email',
+  );
+  /*
+  $search_api_servers = _o2_search_api_servers();
+  search_api_server_enable('claerhout_solr_server');
+  $index = search_api_index_load('default_node_index');
+  $index->update(array('server' => $search_api_servers['production']));
+  search_api_server_disable('localhost'); */
+  o2_environment_module_disable($modules);
+
+  variable_set('block_cache', 1);
+  variable_set('cache', 1);
+  variable_set('page_compression', 1);
+  variable_set(REROUTE_EMAIL_ENABLE, 0);
+  variable_set(REROUTE_EMAIL_ADDRESS, '');
+}
+
+/**
+ * Implements hook_features_export_alter().
+ *
+ * Prevent exportables from being exported if they are environment specific.
+ */
+function o2_environment_features_export_alter(&$export, $module_name) {
+  $dependencies = array(
+    'admin_devel',
+    'dblog',
+    'devel',
+    'devel_generate',
+    'devel_node_access',
+    'ds_devel',
+    'link_css',
+    'metatag_devel',
+    'context_ui',
+    'ds_ui',
+    'field_ui',
+    'migrate_ui',
+    'owlcarousel_ui',
+    'update',
+    'l10n_update',
+    'views_ui',
+  );
+  foreach ($dependencies as $dependency) {
+    if (isset($export['dependencies'][$dependency])) {
+      unset($export['dependencies'][$dependency]);
+    }
+  }
+
+  $permissions = array(
+    'access devel information',
+    'admin_classes',
+    'admin_fields',
+    'admin_view_modes',
+    'administer contexts',
+    'administer devel menu items',
+    'administer owlcarousel settings',
+    'context ajax block access',
+    'execute php code',
+    'use ctools import',
+    'switch users',
+    'view devel_node_access information',
+  );
+  foreach ($permissions as $permission) {
+    if (isset($export['features']['user_permission'][$permission])) {
+      unset($export['features']['user_permission'][$permission]);
+    }
+  }
+
+  $variables = array(
+    'block_cache',
+    'cache',
+    'page_compression',
+    'preprocess_css',
+    'preprocess_js',
+    'error_level',
+    'views_ui_show_sql_query',
+    'devel_rebuild_theme_registry',
+  );
+  foreach ($variables as $variable) {
+    if (isset($export['features']['variable'][$variable])) {
+      unset($export['features']['variable'][$variable]);
+    }
+  }
+}
+
+/**
+ * Implements hook_default_search_api_index_alter().
+ */
+/*
+function o2_environment_default_search_api_index_alter(&$defaults) {
+  $environment = environment_current();
+  $search_api_servers = _o2_search_api_servers();
+  foreach ($defaults as $machine_name => $index) {
+    $index->server = $search_api_servers[$environment];
+  }
+} */
+
+function _o2_search_api_servers() {
+  return array(
+    'development' => 'localhost',
+    'staging' => 'claerhout_solr_server',
+    'production' => 'claerhout_solr_server',
+  );
+}
+
+/**
+ * Provide a wrapper function around module_disable to only disable modules
+ * without dependencies or with dependencies that should also be disabled.
+ * This prevents disabling basic modules/features that drive the site and that
+ * might accidentally (or intentionally) have a hardcoded dependency.
+ */
+function o2_environment_module_disable($module_list) {
+  $original_module_list = $module_list;
+
+  // Calculate an ordered list of modules to disable including all dep's.
+  // Copied from module.inc /includes/module.inc line 517-543
+  // Get all module data so we can find dependents and sort.
+  $module_data = system_rebuild_module_data();
+
+  // Create an associative array with weights as values.
+  $module_list = array_flip(array_values($module_list));
+
+  $profile = drupal_get_profile();
+  while (list($module) = each($module_list)) {
+    if (!isset($module_data[$module]) || !$module_data[$module]->status) {
+      // This module doesn't exist or is already disabled, skip it.
+      unset($module_list[$module]);
+      continue;
+    }
+    $module_list[$module] = $module_data[$module]->sort;
+
+    // Add dependent modules to the list, with a placeholder weight.
+    // The new modules will be processed as the while loop continues.
+    foreach ($module_data[$module]->required_by as $dependent => $dependent_data) {
+      if (!isset($module_list[$dependent]) && $dependent != $profile) {
+        if (!in_array($dependent, $original_module_list)) {
+          // Changed logic here to exclude modules from disablement when they
+          // have dep's on modules that are not being disabled.
+          $args = array(
+            '@module' => $module,
+            '@dependent' => $dependent,
+          );
+          drupal_set_message(t('Will not disable @module, required dep @dependent not given to disable.', $args), 'warning');
+          unset($module_list[$module]);
+        }
+      }
+    }
+  }
+
+  // Sort the module list by pre-calculated weights.
+  asort($module_list);
+  $module_list = array_keys($module_list);
+
+  if (!empty($module_list)) {
+    module_disable($module_list, FALSE);
+  }
+}

@@ -1,0 +1,63 @@
+#cookieMessage {
+    /* < IE 9 */
+    background:transparent;
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000,endColorstr=#99000000); 
+    zoom: 1;
+    /* OTHER BROWSERS */
+    background: rgba(0,0,0,0.75);
+    bottom: 0;
+    min-height: 60px;
+    left: 0;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    color: $white;
+    text-align: center;
+    line-height: 1.8em;
+
+    // ANIMATE IN
+    bottom: -60px;
+    -webkit-transition: bottom .5s ease-in;
+    -moz-transition: bottom .5s ease-in;
+    -ms-transition: bottom .5s ease-in;
+    -o-transition: bottom .5s ease-in;
+    transition: bottom .5s ease-in;
+}
+
+.cookieMessageContent {
+  @include container;
+  padding: 1em 0;
+}
+
+#cookieMessage a {
+    color: $white;
+    text-decoration: underline;
+}
+
+a#cookieAccept {
+  display: inline-block;
+  border: 1px solid $white;
+  color: $white;
+  padding: 7px 15px 5px 15px;
+  margin-left: 10px;
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:before {
+    content: "\e81a"; 
+    font-family: Fontello;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    margin-right: .5em;
+  }
+
+  &:hover{
+    background: $white;
+    color: $grey;
+  }
+}
+
+

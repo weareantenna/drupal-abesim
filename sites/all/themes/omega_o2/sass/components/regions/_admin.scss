@@ -1,0 +1,36 @@
+// ADMIN
+#admin-menu {
+  box-shadow: none;
+  opacity: .9;
+}
+
+.l-content {
+  .tabs--primary {
+    font-size: .825em;
+    padding-bottom: .25em;
+    border-bottom: 1px solid $red;
+    margin-bottom: 3.5em;
+    &.links--inline {
+      li {
+        float: left;
+        margin-right: .75em;
+        margin-bottom: .5em;
+      }
+    }
+    a {
+      border: 1px solid $red;
+      @include border-radius(4px);
+      background-color: $background;
+      color: $red;
+      font-weight: 700;
+      padding: .05em .75em;
+      opacity: .75;
+      &:hover,
+      &.active {
+        color: $red-dark;
+        border: 1px solid $red-dark;
+        opacity: 1;
+      }
+    }
+  }
+}

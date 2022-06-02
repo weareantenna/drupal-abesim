@@ -1,0 +1,15 @@
+// KEYWORDS
+.l-content {
+  .keywords {
+    margin-top: $big-vert-spacing-unit;
+    //border-top: 1px solid $grey-light;
+    //padding-top: $large-vert-spacing-unit;
+    + p:not(.keywords), + div:not(.keywords) {
+      margin: 0;
+      height: 0;
+    }
+  }
+  .keywords + .keywords {
+    margin-top: 0;
+  }
+}

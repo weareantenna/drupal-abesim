@@ -1,0 +1,91 @@
+.field-name-field-authors {
+  clear: left;
+  padding-top: 4em;
+
+  .label-above {
+    font-size: 1.375em;
+    font-weight: 400;
+    margin-bottom: -0.5em;
+    display: block;
+  }
+  .label-abovec {
+    @extend .label-above;
+  }
+}
+.node--page .field-name-field-authors {
+  padding-top: 0;
+  .label-abovec {
+    @extend h4;
+    margin-bottom: -0.5em;
+    display: block;
+  }
+}
+form > .field-name-field-authors {
+  padding-top: 4em;
+}
+p + .field-name-field-authors {
+  padding-top: 1.5em;
+}
+
+
+.node--person--teaser {
+  margin-top: 2.25em;
+  position: relative;
+  float: left;
+
+  @include breakpoint(0 $small-tab) {
+    width: 46%;
+    margin-right: 8%;
+    &:nth-child(2n+1) {
+      margin-right: 0;
+    }
+  }
+
+  @include breakpoint($small-tab $tab) {
+    width: 30%;
+    margin-right: 5%;
+    &:nth-child(3n+1) {
+      margin-right: 0;
+    }
+  }
+
+  @include breakpoint($tab $tab-desk) {
+    width: 22%;
+    margin-right: 4%;
+    &:nth-child(4n+1) {
+      margin-right: 0;
+    }
+  }
+
+  @include breakpoint($tab-desk, true) {
+    width: 14%;
+    margin-right: 3.2%;
+    &:nth-child(6n+1) {
+      margin-right: 0;
+    }
+  }
+
+  .group-left {
+    img {
+      border: 1px solid $grey-light;
+      @include border-radius(8px);
+    }
+    width: 45%;
+  }
+  .group-right {
+    width: 65%;
+    font-size: .725em;
+    line-height: 1.2em;
+    padding-left: 1em;
+    //padding-top: 3em;
+    position: absolute;
+    bottom: .5em;
+    left: 45%;
+    .field-name-field-first-name,
+    .field-name-field-last-name {
+      display: block;
+      float: left;
+      margin-right: .25em;
+    }
+  }
+}

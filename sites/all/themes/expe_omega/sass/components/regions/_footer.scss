@@ -1,0 +1,31 @@
+.l-footer {
+  background: $grey-ultra;
+  padding: 2em 0;
+  
+  ul li {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+  
+  .block {
+    float: left;
+  }
+  
+  .footer-left, .footer-right {
+    width: 25%;
+  }
+  
+  /* services */
+  .footer-services {
+    width: 50%;
+    
+    .menu-mlid-596, .menu-mlid-597 {
+      float: left;
+      
+      span {
+        font-size: 1.2em;
+      }
+    }
+  }
+}

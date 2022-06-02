@@ -1,0 +1,128 @@
+// NEWS GENERAL
+.news-overview,
+.node-type-news {
+  .l-content {
+    img {
+      @include border-radius(4px);
+      border: 1px solid $grey-light;
+      margin-top: .5em;
+
+      margin-bottom: 1em;
+      @include breakpoint(0 $small-tab) {
+        width: 100%;
+        max-width: 340px;
+      }
+      @include breakpoint($tab-desk, true) {
+        margin-top: -4.75em;
+      }
+    }
+    .field-name-title {
+      h2 {
+        margin-bottom: 0;
+      }
+      @include breakpoint($tab-desk) {
+        margin-left: 40%;
+      }
+    }
+
+    .field-name-post-date {
+      display: inline-block;
+      color: $grey;
+      font-size: .825em;
+      padding-right: 1.5em;
+      padding-bottom: .5em;
+      border-bottom: 1px solid $grey-light;
+      margin-bottom: 1em;
+      &:before {
+        content: "\f073";
+        font-family: FontAwesome;
+        font-size: 1.1em;
+        margin-right: .5em;
+      }
+      @include breakpoint($tab-desk) {
+        margin-left: 40%;
+      }
+    }
+    .field-name-body {
+      margin-bottom: 1em;
+      @include breakpoint($small-tab) {
+        //margin-top: -3em;
+      }
+      @include breakpoint($tab) {
+        margin-top: 0;
+      }
+      @include breakpoint($tab-desk, true) {
+        margin-top: 1em;
+      }
+    }
+    .field-name-node-link {
+      a {
+        color: $base-text-color;
+        font-weight: 700;
+        font-size: .875em;
+        padding: .5em 1em .5em 0;
+        //@include transition(lenghth, 5s, ease-in-out);
+        &:before {
+          content: "\f138";
+          font-family: FontAwesome;
+          font-size: 1.1em;
+          margin-right: .5em;
+
+          &:hover {
+            color: $red;
+          }
+        }
+        &:hover {
+          color: $red;
+        }
+      }
+    }
+  }
+
+}
+
+
+// NEWS OVERVIEW
+.news-overview {
+  .group-left {
+    width: 100%;
+    text-align: center;
+    @include breakpoint($small-tab, true) {
+      width: 40%;
+      padding-right: 2.25em;
+    }
+
+  }
+  .group-right {
+    width: 100%;
+    @include breakpoint($small-tab, true) {
+      width: 60%;
+    }
+  }
+}
+
+// NEWS DETAIL PAGE
+.node-type-news {
+  .l-content {
+    .field-name-field-thumbnail {
+      //background-color: green;
+      //width: 100%;
+      @include breakpoint($small-tab, true) {
+        display: inline-block;
+        float: right;
+        margin-top: 3em;
+        max-width: 40%;
+        padding-left: 2.25em;
+      }
+      img {
+        @include breakpoint($tab-desk, true) {
+          margin-top: 0.5em;
+        }
+      }
+    }
+    .field-name-post-date {
+      margin-left: 0;
+    }
+  }
+
+}

@@ -1,0 +1,40 @@
+@import "breakpoint";
+@import "singularitygs";
+
+// Set consistent vertical and horizontal spacing units.
+$vert-spacing-unit: 1em;
+$horz-spacing-unit: 2em;
+
+// Set breakpoint values.
+$tab  : 46em;
+$desk : 58em;
+$wide : 74.5em;
+
+// Set Singularity grid variables.
+@include add-grid(24);
+@include add-gutter(3em);
+
+// Set full width row
+@mixin fullrow {
+  width: 100%;
+  float: left;
+  clear: both;
+  @include pie-clearfix;
+}
+
+// Set container
+@mixin container {
+
+  //@include sgs-change('debug', true);
+  //@include background-grid;  // VISUALIZE YOUR GRID
+
+  width: 94%;
+  margin: 0 auto;
+  max-width: 78em;
+  @include pie-clearfix;
+
+  @include breakpoint($wide) {
+    max-width: 92em;    
+  }
+
+}

@@ -1,0 +1,22 @@
+<?php
+/**
+ * @file
+ * Code for the fo2_showcase feature.
+ */
+
+include_once 'fo2_showcase.features.inc';
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function fo2_showcase_form_showcase_node_form_alter(&$form, &$form_state) {
+  $form['#after_build'][] = 'fo2_showcase_hide_path_settings';
+}
+
+/**
+ * Hide path settings because showcases are never shown directly to users.
+ */
+function fo2_showcase_hide_path_settings($form, &$form_state) {
+  $form['path']['#access'] = FALSE;
+  return $form;
+}

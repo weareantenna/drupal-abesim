@@ -1,0 +1,19 @@
+.info {
+  @include pie-clearfix;
+  .field {
+    float: left;
+    margin: 0 1em 1em 0;
+
+    .field__item:before{
+      font-family: "fontello";
+      font-style: normal;
+      font-weight: normal;
+      speak: none;
+      display: inline-block;
+      text-decoration: inherit;
+      margin-right: .5em;
+    }
+    &.field--name-field-date .field__item:before { content:'\e80f'; }
+    &.field--name-field-location .field__item:before { content:'\e817'; }
+  }
+}

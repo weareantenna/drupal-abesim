@@ -1,0 +1,118 @@
+/*
+ * The Search results
+ */
+
+ .search-api-page-search-form  { 
+
+  @include pie-clearfix;
+  margin: 0 auto 2em auto;
+
+  @include breakpoint($tab, true){
+    max-width: 50%;
+  }
+
+  .form-item {
+    float: left;
+    width: 70%;
+    margin: 0;
+    position: relative;
+
+    &:before{
+      content:'\e823';
+      font-family: "fontello";
+      font-style: normal;
+      font-weight: normal;
+      speak: none;
+      display: inline-block;
+      text-decoration: inherit;
+      position: absolute;
+      top: .4em;
+      right: .9em;
+    }
+    &.throbbing:before{
+      content:'\e825';
+      animation:1s linear 0s normal none infinite spin;
+    }
+
+    label {
+      display: none;
+    }
+
+    input {
+      background: transparent;
+      border-right: 0;
+    }
+  }
+
+  .form-submit{
+    float: left;
+  }
+}
+
+.l-content .search-api-page-results {
+
+  .search-performance { display: none; }
+
+  > h2 {
+    text-align: center;
+  }
+
+  ol.search-results {
+
+    border: 1px solid $grey-ultra;
+    @include border-radius(0 0 4px 4px);
+    padding: 10px;
+    margin: 0;
+
+    h2 a {
+      text-decoration: underline;;
+      color: $purple-dark;
+
+      &:hover {
+        color: $green-dark;
+      }
+    }
+
+    .node--searchresult{
+      padding: 2em 0;
+      border-bottom: 1px solid $grey-ultra;
+      
+      /*
+      .group-left { width: 100%; }
+      .group-right { width: 100%; }
+
+      @include breakpoint($tab, true){
+        .group-left { width: 30%; margin-right: 2%; }
+        .group-right { width: 68%; }
+      }
+
+      .group-left img { margin-top: 1em; } 
+      */
+
+
+      &:last-child{
+        border-bottom: 0;
+      }
+
+      /*.field--name-body  {
+        h2, h3, h4 {
+          font-size: 18px;
+          color: $black;
+          padding-bottom: 0;
+          border-bottom: 0;
+          padding-left: 0;
+          margin-bottom: 6px;
+
+          &:before{
+            content:'';
+          }
+        }
+
+        p{
+          margin: 0 0 6px 0;
+        }
+      }
+      */
+    }
+  }
+}

@@ -1,0 +1,89 @@
+<?php
+
+    /**
+     * Implements hook_permission().
+     *
+     * Adds permission for users to use AJAX file uploads in webforms
+     */
+    function ajax_upload_disabler_permission() {
+
+        $permissions = array(
+            'use ajax uploads' => array(
+                'title' => t('Use AJAX for core Drupal file uploads.'),
+            ),
+        );
+
+        if (module_exists('webform')) {
+            $permissions['use ajax webform uploads'] = array(
+                'title' => t('Use AJAX for webform file uploads.'),
+            );
+        }
+
+        return $permissions;
+    }
+
+    /**
+     * Implements hook_theme_registry_alter().
+     *
+     * Modifies theme registry to make sure our custom functions are used when 
+     * rendering a file upload element. 
+     */
+    function ajax_upload_disabler_theme_registry_alter(&$theme_registry) {
+
+        $theme_registry['file_managed_file']['function'] = '_ajax_upload_disabler_file_managed_file';
+
+        if (module_exists('webform')) {
+            $theme_registry['webform_managed_file']['function'] = '_ajax_upload_disabler_webform_managed_file';
+        }
+    } 
+
+    /**
+     * Removes buttons that add AJAX behaviors to core Drupal file upload fields
+     * if user does not have permission to use them.
+     *
+     * @param $variables
+     *   An associative array containing:
+     *   - element: A render element representing the file.
+     */
+    function _ajax_upload_disabler_file_managed_file($variables) {
+        $element = &$variables['element'];
+
+        // If user does not have permissions to use AJAX, remove buttons from 
+        // array before they are rendered
+        if (!user_access('use ajax uploads')) {
+            unset($element['upload_button']);
+            unset($element['remove_button']);
+        }
+
+        // Call the normal managed file function to continue processing 
+        // like a normal file field
+        $output = theme_file_managed_file($variables);
+
+        return $output;
+    }
+
+    /**
+     * Removes buttons that add AJAX behaviors to webform file upload fields
+     * if user does not have permission to use them.
+     *
+     * @param $variables
+     *   An associative array containing:
+     *   - element: A render element representing the file.
+     */
+    function _ajax_upload_disabler_webform_managed_file($variables) {
+        $element = &$variables['element'];
+
+        // If user does not have permissions to use AJAX, remove buttons from 
+        // array before they are rendered
+        if (!user_access('use ajax webform uploads')) {
+            unset($element['upload_button']);
+            unset($element['remove_button']);
+        }
+
+        // Call the normal webform managed file function to continue processing 
+        // like a normal file field
+        $output = theme_webform_managed_file($variables);
+
+        return $output;
+    }
+
